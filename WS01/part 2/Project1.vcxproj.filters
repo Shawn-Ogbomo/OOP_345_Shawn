@@ -37,7 +37,7 @@
     <ClCompile Include="utils.h">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Util.cpp">
+    <ClCompile Include="utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

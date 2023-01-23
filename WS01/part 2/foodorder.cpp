@@ -8,6 +8,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <string>
 #include <iomanip>
+#include<cstring>
 #include "foodorder.h"
 #include "utils.h"
 namespace sdds {

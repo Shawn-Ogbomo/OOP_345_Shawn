@@ -21,8 +21,9 @@
 
 // TODO: write the prototype for the main function
 //         to accept command line arguments
-
-{
+double g_taxrate{};
+double g_dailydiscount{};
+int main(int argc, char* argv[]) {
 	std::cout << "Command Line:\n";
 	std::cout << "--------------------------\n";
 	// TODO: print the command line here, in the format
@@ -30,7 +31,9 @@
 	//   2: second argument
 	//   3: third argument
 	//   ...
-
+	for (int i = 1; i < argc; ++i) {
+		std::cout << i << ": " << argv[i] << "\n";
+	}
 
 	std::cout << "--------------------------\n\n";
 
@@ -43,13 +46,12 @@
 
 	for (auto day = 1; day < argc; ++day)
 	{
-
 		// Rates change from day 1 to day 2
-		if (day == 1){
+		if (day == 1) {
 			g_taxrate = 0.13;
 			g_dailydiscount = 1.15;
 		}
-		else{
+		else {
 			g_taxrate = 0.14;
 			g_dailydiscount = 1.20;
 		}
@@ -69,28 +71,27 @@
 
 		// loop through each order in the file
 		while (in) {
+			// read in the ordertag
+			in >> ordertag;
+			// skip the delimiter
+			in.ignore();
 
-				// read in the ordertag
-				in >> ordertag;
-				// skip the delimiter
-				in.ignore();
+			// end of the file
+			if (in.fail())
+				break;
 
-				// end of the file
-				if (in.fail())
-					break;
+			// read in the rest of the data as a FoodOrder
+			currentOrder.read(in);
 
-				// read in the rest of the data as a FoodOrder
-				currentOrder.read(in);
-
-				// Handle the in house and delivery orders differently
-				if (ordertag == 'I') {
-					sdds::FoodOrder copy = currentOrder;
-					copy.display();
-				}
-				else if (ordertag == 'D'){ // adds the delivery orders to the record
-					recordedDeliveryOrders[numDeliveries++] = currentOrder;
-					currentOrder.display();
-				}
+			// Handle the in house and delivery orders differently
+			if (ordertag == 'I') {
+				sdds::FoodOrder copy = currentOrder;
+				copy.display();
+			}
+			else if (ordertag == 'D') { // adds the delivery orders to the record
+				recordedDeliveryOrders[numDeliveries++] = currentOrder;
+				currentOrder.display();
+			}
 		}
 	}
 

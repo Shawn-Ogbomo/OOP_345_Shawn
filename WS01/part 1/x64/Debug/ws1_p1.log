@@ -1,0 +1,4 @@
+﻿  foodorder.cpp
+D:\oop_345\OOP_345_Shawn\WS01\part 1\foodorder.cpp(38,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\oop_345\OOP_345_Shawn\WS01\part 1\foodorder.cpp(38,50): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+  ws1_p1.vcxproj -> D:\oop_345\OOP_345_Shawn\WS01\part 1\x64\Debug\ws1_p1.exe

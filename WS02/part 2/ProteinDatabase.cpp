@@ -24,7 +24,6 @@ sdds::ProteinDatabase::ProteinDatabase(const char* file_name)
 	}
 	char* s;
 	std::string str;
-	char c{};
 	while (ifs) {
 		if (ifs.peek() == '>') {
 			ifs.ignore();
@@ -33,10 +32,45 @@ sdds::ProteinDatabase::ProteinDatabase(const char* file_name)
 			s = new char[str.length() + 1];
 			std::strcpy(s, str.c_str());
 			++element_count;
-			str = "";
+			str.clear();
 			delete[] s;
 		}
 	}
+	elements = new std::string[element_count];
+	ifs.clear();
+	ifs.seekg(0, std::ios::beg);
+	std::string protien_sequence;
+	for (int i = 0; (i < element_count); ++i) {
+		ifs.ignore(1000, '\n');
+		while (ifs.peek() != '>' && (!ifs.eof())) {
+			ifs >> str;
+			protien_sequence += str;
+			ifs.ignore();
+		}
+		elements[i] = protien_sequence;
+		protien_sequence.clear();
+	}
+}
+sdds::ProteinDatabase::ProteinDatabase(const ProteinDatabase& p) {
+	*this = p;
+}
+//while (ifs) {
+//	if (ifs.peek() == '>') {
+//		ifs.ignore();
+//	}
+//	if (std::getline(ifs, str, '>')) {
+//		int pos = str.find("SV=1", 0);
+//		str.erase(str.find("tr|", 0), pos + 5);
+//		//elements[0] = new char[str.length() + 1];
+//		elements[0] = str;
+//		str = "";
+
+//	}
+//}
+
+sdds::ProteinDatabase::~ProteinDatabase() {
+	delete[] elements;
+	elements = nullptr;
 }
 
 size_t sdds::ProteinDatabase::size() {
@@ -44,8 +78,16 @@ size_t sdds::ProteinDatabase::size() {
 }
 
 std::string sdds::ProteinDatabase::operator[](size_t index) {
-	if (elements) {
+	if (index >= 0 && index < element_count) {
 		return elements[index];
 	}
 	return std::string{};
+}
+
+sdds::ProteinDatabase& sdds::ProteinDatabase::operator=(const ProteinDatabase& right) {
+	if (this != &right) {
+		elements = right.elements;
+		element_count = right.element_count;
+	}
+	return *this;
 }

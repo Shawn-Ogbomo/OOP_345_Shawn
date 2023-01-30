@@ -12,8 +12,11 @@ namespace sdds {
 	public:
 		ProteinDatabase();
 		ProteinDatabase(const char* file_name);
+		ProteinDatabase(const ProteinDatabase& p);
+		~ProteinDatabase();
 		size_t size();
 		std::string operator[](size_t index);
+		ProteinDatabase& operator= (const ProteinDatabase& right);
 	private:
 		std::string* elements;
 		int element_count;

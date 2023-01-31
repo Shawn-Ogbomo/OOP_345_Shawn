@@ -33,9 +33,11 @@ namespace sdds {
 	std::ostream& operator<<(std::ostream& os, const TimedTask& t) {
 		os << "Execution Times:\n" << "--------------------------\n";
 		for (const auto& target : t.tasks) {
-			os << std::left << std::setw(21) << target.name
-				<< std::right << std::setw(13) << target.duration.count()
-				<< " " << target.time_unit << "\n";
+			if (target.name.size()) {
+				os << std::left << std::setw(21) << target.name
+					<< std::right << std::setw(13) << target.duration.count()
+					<< " " << target.time_unit << "\n";
+			}
 		}
 		os << "--------------------------\n";
 		return os;

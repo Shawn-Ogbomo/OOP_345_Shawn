@@ -54,31 +54,33 @@ sdds::ProteinDatabase::ProteinDatabase(const char* file_name)
 sdds::ProteinDatabase::ProteinDatabase(const ProteinDatabase& p) {
 	*this = p;
 }
-//while (ifs) {
-//	if (ifs.peek() == '>') {
-//		ifs.ignore();
-//	}
-//	if (std::getline(ifs, str, '>')) {
-//		int pos = str.find("SV=1", 0);
-//		str.erase(str.find("tr|", 0), pos + 5);
-//		//elements[0] = new char[str.length() + 1];
-//		elements[0] = str;
-//		str = "";
 
-//	}
-//}
+sdds::ProteinDatabase::ProteinDatabase(ProteinDatabase&& p) {
+	*this = std::move(p);
+}
 
 sdds::ProteinDatabase::~ProteinDatabase() {
 	delete[] elements;
 	elements = nullptr;
+	element_count = 0;
 }
 
 size_t sdds::ProteinDatabase::size() {
 	return element_count;
 }
 
+sdds::ProteinDatabase& sdds::ProteinDatabase::operator=(ProteinDatabase&& right) {
+	if (this != &right) {
+		delete[] elements;
+		element_count = right.element_count;
+		elements = right.elements;
+		right.elements = nullptr;
+	}
+	return *this;
+}
+
 std::string sdds::ProteinDatabase::operator[](size_t index) {
-	if (index >= 0 && index < element_count) {
+	if ((index >= 0) && (index < element_count) && (elements)) {
 		return elements[index];
 	}
 	return std::string{};
@@ -86,8 +88,12 @@ std::string sdds::ProteinDatabase::operator[](size_t index) {
 
 sdds::ProteinDatabase& sdds::ProteinDatabase::operator=(const ProteinDatabase& right) {
 	if (this != &right) {
-		elements = right.elements;
+		delete[] elements;
 		element_count = right.element_count;
+		elements = new std::string[right.element_count];
+		for (int i = 0; i < right.element_count; ++i) {
+			elements[i] = right.elements[i];
+		}
 	}
 	return *this;
 }

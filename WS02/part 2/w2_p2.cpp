@@ -100,40 +100,40 @@ int main(int argc, char** argv)
 		t.startClock();
 		ProteinDatabase protein_DBD = std::move(protein_DBA);
 		t.stopClock();
-		//t.addTask("  Move Constructor");
-		//std::cout << "  Move Constructor  - protein_DBD.size = "
-		//	<< std::setw(7) << protein_DBD.size() << " strings -> \n";
-		//std::cout << std::setw(70) << "(a) String     1: [" << protein_DBA[0] << "]\n";
-		//std::cout << std::setw(70) << "(a) String   100: [" << protein_DBA[99] << "]\n";
-		//std::cout << std::setw(70) << "(a) String  1000: [" << protein_DBA[999] << "]\n";
-		//std::cout << std::setw(70) << "(a) String  last: [" << protein_DBA[protein_DBA.size() - 1] << "]\n";
-		//std::cout << std::setw(70) << "(a) String last+: [" << protein_DBA[protein_DBA.size() + 4] << "]\n\n";
-		//std::cout << std::setw(70) << "(d) String     1: [" << protein_DBD[0].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(d) String   100: [" << protein_DBD[99].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(d) String  1000: [" << protein_DBD[999].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(d) String  last: [" << protein_DBD[protein_DBD.size() - 1].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(d) String last+: [" << protein_DBD[protein_DBD.size() + 5] << "]\n\n";
+		t.addTask("  Move Constructor");
+		std::cout << "  Move Constructor  - protein_DBD.size = "
+			<< std::setw(7) << protein_DBD.size() << " strings -> \n";
+		std::cout << std::setw(70) << "(a) String     1: [" << protein_DBA[0] << "]\n";
+		std::cout << std::setw(70) << "(a) String   100: [" << protein_DBA[99] << "]\n";
+		std::cout << std::setw(70) << "(a) String  1000: [" << protein_DBA[999] << "]\n";
+		std::cout << std::setw(70) << "(a) String  last: [" << protein_DBA[protein_DBA.size() - 1] << "]\n";
+		std::cout << std::setw(70) << "(a) String last+: [" << protein_DBA[protein_DBA.size() + 4] << "]\n\n";
+		std::cout << std::setw(70) << "(d) String     1: [" << protein_DBD[0].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(d) String   100: [" << protein_DBD[99].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(d) String  1000: [" << protein_DBD[999].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(d) String  last: [" << protein_DBD[protein_DBD.size() - 1].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(d) String last+: [" << protein_DBD[protein_DBD.size() + 5] << "]\n\n";
 
-		//protein_DBD = std::move(protein_DBD);
+		protein_DBD = std::move(protein_DBD);
 
-		//t.startClock();
-		//protein_DBA = std::move(protein_DBD);
-		//t.stopClock();
-		//t.addTask("  Move Assignment");
-		//std::cout << "  Move Assignment   - protein_DBA.size = "
-		//	<< std::setw(7) << protein_DBA.size() << " strings -> \n";
-		//std::cout << std::setw(70) << "(a) String     1: [" << protein_DBA[0].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(a) String   100: [" << protein_DBA[99].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(a) String  1000: [" << protein_DBA[999].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(a) String  last: [" << protein_DBA[protein_DBA.size() - 1].substr(0, 20) << "]\n";
-		//std::cout << std::setw(70) << "(a) String last+: [" << protein_DBA[protein_DBA.size() + 6] << "]\n\n";
-		//std::cout << std::setw(70) << "(d) String     1: [" << protein_DBD[0] << "]\n";
-		//std::cout << std::setw(70) << "(d) String   100: [" << protein_DBD[99] << "]\n";
-		//std::cout << std::setw(70) << "(d) String  1000: [" << protein_DBD[999] << "]\n";
-		//std::cout << std::setw(70) << "(d) String  last: [" << protein_DBD[protein_DBD.size() - 1] << "]\n";
-		//std::cout << std::setw(70) << "(d) String last+: [" << protein_DBD[protein_DBD.size() + 7] << "]\n";
+		t.startClock();
+		protein_DBA = std::move(protein_DBD);
+		t.stopClock();
+		t.addTask("  Move Assignment");
+		std::cout << "  Move Assignment   - protein_DBA.size = "
+			<< std::setw(7) << protein_DBA.size() << " strings -> \n";
+		std::cout << std::setw(70) << "(a) String     1: [" << protein_DBA[0].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(a) String   100: [" << protein_DBA[99].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(a) String  1000: [" << protein_DBA[999].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(a) String  last: [" << protein_DBA[protein_DBA.size() - 1].substr(0, 20) << "]\n";
+		std::cout << std::setw(70) << "(a) String last+: [" << protein_DBA[protein_DBA.size() + 6] << "]\n\n";
+		std::cout << std::setw(70) << "(d) String     1: [" << protein_DBD[0] << "]\n";
+		std::cout << std::setw(70) << "(d) String   100: [" << protein_DBD[99] << "]\n";
+		std::cout << std::setw(70) << "(d) String  1000: [" << protein_DBD[999] << "]\n";
+		std::cout << std::setw(70) << "(d) String  last: [" << protein_DBD[protein_DBD.size() - 1] << "]\n";
+		std::cout << std::setw(70) << "(d) String last+: [" << protein_DBD[protein_DBD.size() + 7] << "]\n";
 
-		//t.startClock();
+		t.startClock();
 	}
 	t.stopClock();
 	t.addTask("  Destructor");

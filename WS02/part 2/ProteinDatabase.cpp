@@ -9,6 +9,7 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <cstring>
 #include "ProteinDatabase.h"
 sdds::ProteinDatabase::ProteinDatabase()
 	:elements{},
@@ -40,7 +41,7 @@ sdds::ProteinDatabase::ProteinDatabase(const char* file_name)
 	ifs.clear();
 	ifs.seekg(0, std::ios::beg);
 	std::string protien_sequence;
-	for (int i = 0; (i < element_count); ++i) {
+	for (int i = 0; i < element_count; ++i) {
 		ifs.ignore(1000, '\n');
 		while (ifs.peek() != '>' && (!ifs.eof())) {
 			ifs >> str;
@@ -61,8 +62,6 @@ sdds::ProteinDatabase::ProteinDatabase(ProteinDatabase&& p) {
 
 sdds::ProteinDatabase::~ProteinDatabase() {
 	delete[] elements;
-	elements = nullptr;
-	element_count = 0;
 }
 
 size_t sdds::ProteinDatabase::size() {
@@ -80,7 +79,7 @@ sdds::ProteinDatabase& sdds::ProteinDatabase::operator=(ProteinDatabase&& right)
 }
 
 std::string sdds::ProteinDatabase::operator[](size_t index) {
-	if ((index >= 0) && (index < element_count) && (elements)) {
+	if ((index >= 0) && (index < static_cast<size_t>(element_count)) && (elements)) {
 		return elements[index];
 	}
 	return std::string{};

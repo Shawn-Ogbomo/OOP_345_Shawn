@@ -18,10 +18,12 @@ namespace sdds {
 		//           that are necessary if this class is to be used
 		//           with the template classes described below.
 		//       Implement them in the Pair.cpp file.
+		Pair();
 	private:
 		std::string m_key{};
 		std::string m_value{};
 	};
+	std::ostream& operator<< (std::ostream& os, Pair& p);
 }
 
 #endif//!SDDS_PAIR_H

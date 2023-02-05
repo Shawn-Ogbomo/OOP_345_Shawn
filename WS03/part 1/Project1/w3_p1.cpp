@@ -89,7 +89,7 @@ int main(int argc, char** argv)
 		std::cout << "Item [9]: [" << colDictionary[9].getKey() << "]["
 			<< colDictionary[9].getValue() << "]\n";
 		std::cout << "******************************************************\n\n";
-	}
 
-	return cout;
+		return cout;
+	}
 }

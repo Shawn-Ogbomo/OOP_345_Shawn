@@ -7,21 +7,24 @@
 //-----------------------------------------------------------
 #ifndef SDDS_COLLECTION_H_
 #define SDDS_COLLECTION_H_
+#include <iostream>
+#include "Pair.h"
 namespace sdds {
-	template <typename T, int CAPACITY = 20>
+	template <typename T, unsigned CAPACITY = 20>
 	class Collection {
 	public:
 		Collection() :dummy{}, elements{}, element_count{}{}
-		unsigned size() { return element_count; }const
-			void display(std::ostream& os = std::cout) {
+		void display(std::ostream& os = std::cout) {
 			os << "----------------------" << "\n" <<
 				"| Collection Content |" << "\n" <<
 				"----------------------" << "\n";
-			for (int i = 0; i < element_count; ++i) {
-				os << elements[i] << "\n";
+			for (int i = 0; i < CAPACITY; ++i) {
+				if (i < element_count)
+					os << elements[i] << "\n";
 			}
 			std::cout << "----------------------" << "\n";
 		} const
+			unsigned size() { return element_count; }const
 			bool add(const T& item) {
 			if (element_count < CAPACITY) {
 				elements[element_count] = item;
@@ -30,9 +33,8 @@ namespace sdds {
 			}
 			return false;
 		}
-
-		T& operator[](int index) {
-			if (index  < 0 || index >(element_count - 1)) {
+		T& operator[](unsigned index) {
+			if (index > (element_count - 1)) {
 				return dummy;
 			}
 			return elements[index];
@@ -42,5 +44,7 @@ namespace sdds {
 		T elements[CAPACITY];
 		unsigned element_count;
 	};
+	template<>
+	sdds::Collection<Pair, 100>::Collection() :dummy{ "No key","No Value" }, elements{}, element_count{}{}
 }
 #endif//!SDDS_COLLECTION_H

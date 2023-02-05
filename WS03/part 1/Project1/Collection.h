@@ -18,7 +18,7 @@ namespace sdds {
 			os << "----------------------" << "\n" <<
 				"| Collection Content |" << "\n" <<
 				"----------------------" << "\n";
-			for (int i = 0; i < CAPACITY; ++i) {
+			for (unsigned i = 0; i < CAPACITY; ++i) {
 				if (i < element_count)
 					os << elements[i] << "\n";
 			}

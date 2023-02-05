@@ -8,33 +8,38 @@
 #ifndef SDDS_COLLECTION_H_
 #define SDDS_COLLECTION_H_
 namespace sdds {
-	template <typename T, unsigned capacity>
+	template <typename T, int CAPACITY = 20>
 	class Collection {
 	public:
-		Collection() :default_element{}, elements{}, element_count{}{}
+		Collection() :dummy{}, elements{}, element_count{}{}
 		unsigned size() { return element_count; }const
 			void display(std::ostream& os = std::cout) {
+			os << "----------------------" << "\n" <<
+				"| Collection Content |" << "\n" <<
+				"----------------------" << "\n";
 			for (int i = 0; i < element_count; ++i) {
 				os << elements[i] << "\n";
 			}
+			std::cout << "----------------------" << "\n";
 		} const
 			bool add(const T& item) {
-			if (element_count < capacity) {
+			if (element_count < CAPACITY) {
 				elements[element_count] = item;
 				++element_count;
 				return true;
 			}
 			return false;
 		}
+
 		T& operator[](int index) {
 			if (index  < 0 || index >(element_count - 1)) {
-				return default_element;
+				return dummy;
 			}
 			return elements[index];
 		}
 	private:
-		T default_element;
-		T elements[capacity];
+		T dummy;
+		T elements[CAPACITY];
 		unsigned element_count;
 	};
 }

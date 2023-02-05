@@ -1,0 +1,17 @@
+﻿  w3_p1.cpp
+D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\Collection.h(30,28): warning C4018: '>': signed/unsigned mismatch
+D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\Collection.h(29): message : while compiling class template member function 'T &sdds::Collection<T,20>::operator [](int)'
+          with
+          [
+              T=long
+          ]
+D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\w3_p1.cpp(49): message : see reference to function template instantiation 'T &sdds::Collection<T,20>::operator [](int)' being compiled
+          with
+          [
+              T=long
+          ]
+D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\w3_p1.cpp(41): message : see reference to class template instantiation 'sdds::Collection<long,20>' being compiled
+D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\Collection.h(17,22): warning C4018: '<': signed/unsigned mismatch
+D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\Collection.h(16): message : while compiling class template member function 'const void sdds::Collection<long,20>::display(std::ostream &)'
+D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\w3_p1.cpp(47): message : see reference to function template instantiation 'const void sdds::Collection<long,20>::display(std::ostream &)' being compiled
+  Project1.vcxproj -> D:\oop_345\OOP_345_Shawn\WS03\part 1\Project1\Debug\Project1.exe

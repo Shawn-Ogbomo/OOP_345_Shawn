@@ -1,0 +1,9 @@
+void display(std::ostream& os = std::cout) {
+  if the element count is less than capacity 
+  add the item
+  increase the element count
+  return true 
+
+  return false
+
+} 

@@ -23,9 +23,9 @@ namespace sdds {
 					os << elements[i] << "\n";
 			}
 			std::cout << "----------------------" << "\n";
-		} const
-			unsigned size() { return element_count; }const
-			bool add(const T& item) {
+		}
+		unsigned size()const { return element_count; }
+		bool add(const T& item) {
 			if (element_count < CAPACITY) {
 				elements[element_count] = item;
 				++element_count;

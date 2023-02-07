@@ -1,6 +1,15 @@
 // Workshop 2 - Copy and Move Semantics
 // w2_p2.cpp
 // 2021/11/28 - Mufleh Al-Shatnawi
+//#define _CRTDBG_MAP_ALLOC
+//#include <cstdlib>
+//#include <crtdbg.h>
+//
+//#ifdef _DEBUG
+//#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+//#else
+//#define DBG_NEW new
+//#endif
 
 #include <iostream>
 #include <iomanip>
@@ -138,4 +147,5 @@ int main(int argc, char** argv)
 	t.stopClock();
 	t.addTask("  Destructor");
 	std::cout << t;
+	//_CrtDumpMemoryLeaks();
 }

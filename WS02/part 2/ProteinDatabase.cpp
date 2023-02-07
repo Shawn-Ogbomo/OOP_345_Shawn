@@ -62,6 +62,7 @@ sdds::ProteinDatabase::ProteinDatabase(ProteinDatabase&& p) {
 
 sdds::ProteinDatabase::~ProteinDatabase() {
 	delete[] elements;
+	elements = nullptr;
 }
 
 size_t sdds::ProteinDatabase::size() {

@@ -20,8 +20,8 @@ namespace sdds {
 		std::string operator[](size_t index);
 		ProteinDatabase& operator= (const ProteinDatabase& right);
 	private:
-		std::string* elements;
-		int element_count;
+		std::string* elements{};
+		int element_count{};
 	};
 }
 #endif//!SDDS_PROTEINDATABASE_H

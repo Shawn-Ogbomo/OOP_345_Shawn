@@ -7,7 +7,8 @@
 //-----------------------------------------------------------
 #ifndef SDDS_SET_H_
 #define SDDS_SET_H_
-#include <cmath>
+#include <math.h>
+#include "Pair.h"
 #include "Collection.h"
 namespace sdds {
 	template<typename T>
@@ -33,7 +34,7 @@ namespace sdds {
 		if (this->element_count < 100) {
 			constexpr double threshhold = 0.01;
 			for (unsigned i = 0; i < 100; ++i) {
-				if (std::abs(item) - std::abs(elements[i]) <= threshhold) {
+				if (std::fabs(item - elements[i]) <= threshhold) {
 					return false;
 				}
 			}
@@ -44,5 +45,4 @@ namespace sdds {
 		return false;
 	}
 }
-
 #endif//!SDDS_SET_H

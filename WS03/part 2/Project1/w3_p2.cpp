@@ -131,7 +131,7 @@ int main(int argc, char** argv)
 		std::cout << "******************************************************\n\n";
 	}
 
-	/*{
+	{
 		std::cout << "******************************************************\n";
 		std::cout << "* Testing the Set of Pairs                           *\n";
 		std::cout << "******************************************************\n";
@@ -151,7 +151,6 @@ int main(int argc, char** argv)
 			<< (*setDictionary)[11].getValue() << "]\n";
 		std::cout << "******************************************************\n\n";
 		delete setDictionary;
-	}*/
-
+	}
 	return cout;
 }

@@ -10,10 +10,10 @@
 #include <iomanip>
 #include "Pair.h"
 namespace sdds {
-	std::ostream& operator<<(std::ostream& os, Pair& p) {
+	std::ostream& operator<<(std::ostream& os, const Pair& p) {
 		return os << std::setw(20) << p.getKey() << ":" << " " << p.getValue();
 	}
-	bool operator==(Pair& left, Pair& right) {
+	bool operator==(const Pair& left, const Pair& right) {
 		return left.getKey() == right.getKey() &&
 			left.getValue() == right.getValue();
 	}

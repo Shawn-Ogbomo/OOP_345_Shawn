@@ -11,16 +11,16 @@
 namespace sdds {
 	class Pair {
 	public:
-		const std::string& getKey() { return m_key; }
-		const std::string& getValue() { return m_value; }
+		const std::string& getKey()const { return m_key; }
+		const std::string& getValue()const { return m_value; }
 		Pair(const std::string& key, const std::string& value) : m_key{ key }, m_value{ value }{};
 		Pair();
 	private:
 		std::string m_key{};
 		std::string m_value{};
 	};
-	std::ostream& operator<< (std::ostream& os, Pair& p);
-	bool operator== (Pair& left, Pair& right);
+	std::ostream& operator<< (std::ostream& os, const Pair& p);
+	bool operator== (const Pair& left, const Pair& right);
 }
 
 #endif//!SDDS_PAIR_H

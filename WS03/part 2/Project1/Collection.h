@@ -13,7 +13,7 @@ namespace sdds {
 	class Collection {
 	public:
 		Collection() :dummy{}, elements{}, element_count{}{}
-		~Collection() {}
+		virtual ~Collection() {}
 		void display(std::ostream& os = std::cout) {
 			os << "----------------------" << "\n" <<
 				"| Collection Content |" << "\n" <<

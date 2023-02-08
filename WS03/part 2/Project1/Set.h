@@ -8,7 +8,6 @@
 #ifndef SDDS_SET_H_
 #define SDDS_SET_H_
 #include <math.h>
-#include "Pair.h"
 #include "Collection.h"
 namespace sdds {
 	template<typename T>

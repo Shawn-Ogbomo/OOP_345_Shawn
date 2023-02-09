@@ -21,6 +21,8 @@ sdds::Toy::Toy(const std::string& toy)
 	price{},
 	hst{}  {
 	std::string id;
+	std::string qty;
+	std::string total;
 	for (auto i = 0; i < toy.size(); ++i) {
 		switch (toy[i]) {
 		case '0':
@@ -35,7 +37,15 @@ sdds::Toy::Toy(const std::string& toy)
 		case '9':
 		case '.':
 		{
-			id += toy[i];
+			if (i < max_id_size) {
+				id += toy[i];
+			}
+			else if (i > max_id_size && (isspace(toy[i + 1]) || toy[i + 1] == ':') && (toy[i] != '.')) {
+				qty += toy[i];
+			}
+			else {
+				total += toy[i];
+			}
 			break;
 		}
 		default:
@@ -46,11 +56,16 @@ sdds::Toy::Toy(const std::string& toy)
 					s += toy[i];
 					++i;
 				}
+				name = s;
+				break;
 			}
-
-			break;
 		}
 	}
+	static constexpr double harmonized_sales_tax = .13;
+	order_id = std::stoi(id);
+	amount = std::stoi(qty);
+	price = std::stod(total);
+	hst = (price + (harmonized_sales_tax * price));
 }
 
 void sdds::Toy::update(int numItems) {

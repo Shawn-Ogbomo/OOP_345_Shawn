@@ -9,7 +9,9 @@
 #define SDDS_TOY_H_
 #include <string>
 namespace sdds {
-	class Toy {        //if cpy-ctor is called used inclass initialization
+	class Toy {
+		//if cpy-ctor is called used inclass initialization
+		static constexpr int max_id_size = 7;
 	public:
 		Toy();
 		Toy(const std::string& toy);

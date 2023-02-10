@@ -6,6 +6,7 @@
 //that my professor provided to complete my workshops and assignments
 //-----------------------------------------------------------
 #include <iomanip>
+#include <ios>
 #include "Toy.h"
 namespace sdds {
 	sdds::Toy::Toy()
@@ -80,7 +81,7 @@ namespace sdds {
 
 	std::ostream& operator<<(std::ostream& os, const Toy& t) {
 		return os << "Toy " << t.order_id << ":" << std::right << std::setw(18) << t.name << std::setw(3) << t.amount
-			<< " items" << std::setw(8) << t.price << "/item  subtotal:" << std::setw(7) << t.price * t.amount << " tax:"
-			<< std::setw(5) << std::setprecision(4) << sdds::Toy::harmonized_sales_tax * t.price << " total:" << std::setw(6) << t.hst << "\n";
+			<< " items" << std::setw(8) << std::fixed << std::setprecision(2) << t.price << "/item  subtotal:" << std::setw(7) << std::fixed << std::setprecision(2) << t.price * (t.amount) << " tax:"
+			<< std::setw(5) << std::fixed << std::setprecision(2) << (sdds::Toy::harmonized_sales_tax * t.price * t.amount) << "total:" << std::setw(7) << std::fixed << std::setprecision(2) << (t.hst * t.amount) << "\n";
 	}
 }

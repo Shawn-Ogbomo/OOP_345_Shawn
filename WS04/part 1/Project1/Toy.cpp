@@ -37,11 +37,15 @@ sdds::Toy::Toy(const std::string& toy)
 		case '9':
 		case '.':
 		{
+			auto found = toy.find(':', i);
 			if (i < max_id_size) {
 				id += toy[i];
 			}
-			else if (i > max_id_size && (isspace(toy[i + 1]) || toy[i + 1] == ':') && (toy[i] != '.')) {
-				qty += toy[i];
+			else if (found != std::string::npos) {
+				while (i < found && !isspace(toy[i])) {
+					qty += toy[i];
+					++i;
+				}
 			}
 			else {
 				total += toy[i];

@@ -72,31 +72,31 @@ int main(int argc, char** argv)
 		} while (file);
 		file.close();
 	}
-	//std::cout << "\nToys\n--------------------------\n";
-	//for (auto i = 0u; i < cnt; ++i)
-	//{
-	//	std::cout << *ppToys[i];
-	//}
-	//std::cout << "--------------------------\n\n";
+	std::cout << "\nToys\n--------------------------\n";
+	for (auto i = 0u; i < cnt; ++i)
+	{
+		std::cout << *ppToys[i];
+	}
+	std::cout << "--------------------------\n\n";
 
-	//// modify the amount for some toys
-	//if (cnt > 2)
-	//{
-	//	ppToys[0]->update(6);
-	//	ppToys[2]->update(4);
-	//}
+	// modify the amount for some toys
+	if (cnt > 2)
+	{
+		ppToys[0]->update(6);
+		ppToys[2]->update(4);
+	}
 
-	//std::cout << "\nUpdated Toys\n--------------------------\n";
-	//for (auto i = 0u; i < cnt; ++i)
-	//{
-	//	std::cout << *ppToys[i];
-	//}
-	//std::cout << "--------------------------\n\n";
+	std::cout << "\nUpdated Toys\n--------------------------\n";
+	for (auto i = 0u; i < cnt; ++i)
+	{
+		std::cout << *ppToys[i];
+	}
+	std::cout << "--------------------------\n\n";
 
-	//// cleanup
-	//for (auto i = 0u; i < cnt; ++i)
-	//	delete ppToys[i];
-	//delete[] ppToys;
+	// cleanup
+	for (auto i = 0u; i < cnt; ++i)
+		delete ppToys[i];
+	delete[] ppToys;
 
-	//return 0;
+	return 0;
 }

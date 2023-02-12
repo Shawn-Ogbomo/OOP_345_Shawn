@@ -25,10 +25,10 @@ namespace sdds {
 	}
 
 	Child::~Child() {
-		for (unsigned i{}; i < count; ++i) {
-			delete toys[i];
-		}
-		delete[] toys;
+		/*	for (unsigned i{}; i < count; ++i) {
+				delete toys[i];
+			}
+			delete[] toys;*/
 	}
 
 	Child& Child::operator=(Child&& right) {
@@ -40,8 +40,8 @@ namespace sdds {
 			toys = right.toys;
 			right.toys = nullptr;
 			right.name = "";
-			right.age = {};
-			right.count = {};
+			right.age = 0;
+			right.count = 0;
 		}
 		return *this;
 	}
@@ -66,10 +66,10 @@ namespace sdds {
 		static int CALL_CNT{};
 		++CALL_CNT;
 		if (!c.size()) {
-			return os << "--------------------------\n" << "Child" << CALL_CNT << ":" << "  " << c.age << " years old:"
-				<< "--------------------------\n" << "  This child has no toys! " << "--------------------------\n";
+			return os << "--------------------------\n" << "Child " << CALL_CNT << ":" << "  " << c.age << " years old:\n"
+				<< "--------------------------\n" << "This child has no toys!\n" << "--------------------------\n";
 		}
-		os << "--------------------------\n" << "Child" << CALL_CNT << ": " << c.name << "  " << c.age << " years old:"
+		os << "--------------------------\n" << "Child " << CALL_CNT << ": " << c.name << " " << c.age << " years old:"
 			<< "\n--------------------------\n";
 		for (auto i = 0u; i < c.count; ++i) {
 			os << *c.toys[i];

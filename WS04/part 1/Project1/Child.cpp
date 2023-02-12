@@ -10,11 +10,31 @@ namespace sdds {
 	Child::Child(std::string name, int age, const Toy* toys[], size_t count)
 		: name{ name },
 		age{ age },
-		toys{ toys },
-		count{ count } {
+		count{ count },
+		toys{ new const Toy * [count] } {
+		for (int i = 0; i < count; ++i) {
+			this->toys[i] = toys[i];
+		}
 	}
+	Child::Child(const Child& c) {
+		*this = c;
+	}
+
 	size_t Child::size() const {
 		return count;
+	}
+	Child& Child::operator=(const Child& right) {
+		if (this != &right) {
+			delete[] toys;
+			name = right.name;
+			age = right.age;
+			count = right.count;
+			toys = new const Toy * [count];
+			for (auto i = 0u; i < count; ++i) {
+				this->toys[i] = right.toys[i];
+			}
+		}
+		return *this;
 	}
 	std::ostream& operator<<(std::ostream& os, const Child& c) {
 		static int CALL_CNT{};

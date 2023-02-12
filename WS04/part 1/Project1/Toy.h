@@ -11,7 +11,6 @@
 #include <iostream>
 namespace sdds {
 	class Toy {
-		//if cpy-ctor is called used inclass initialization
 		static constexpr double harmonized_sales_tax = 0.13;
 		static constexpr int max_id_size = 7;
 	public:

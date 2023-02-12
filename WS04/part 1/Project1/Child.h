@@ -14,7 +14,9 @@ namespace sdds {
 	class Child {
 	public:
 		Child(std::string name, int age, const Toy* toys[], size_t count);
+		Child(const Child& c);
 		size_t size() const;
+		Child& operator = (const Child& right);
 	private:
 		std::string name;
 		int age;

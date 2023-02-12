@@ -36,7 +36,31 @@ namespace sdds {
 		toys[count - 1] = &toy;
 		return *this;
 	}
-	ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy) {
+	ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy) {			//fix this
+		for (unsigned i = 0; i < count; ++i) {
+			if (toys[i] == &toy) {
+				toys[i] = nullptr;
+				const Toy** temp = new const Toy * [count - 1];
+				for (int j = 0; j < count - 1; ++j) {
+					if (toys[j]) {
+						temp[j] = toys[j];
+					}
+					else if (!temp[j] && toys[j + 1]) {
+						temp[j] = toys[j + 1];
+						++j;
+					}
+				}
+				--count;
+				delete[] toys;
+				toys = new const Toy * [count];
+				for (int k = 0; k < count; ++k) {
+					toys[k] = temp[k];
+				}
+				delete[] temp;
+				return *this;
+			}
+		}
+		return *this;
 	}
 	std::ostream& operator<<(std::ostream& os, const ConfirmOrder& c) {
 		if (!c.count) {

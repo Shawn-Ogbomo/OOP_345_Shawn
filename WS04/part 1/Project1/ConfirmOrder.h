@@ -13,6 +13,7 @@ namespace sdds {
 	public:
 		ConfirmOrder();
 		ConfirmOrder& operator+=(const Toy& toy);
+		ConfirmOrder& operator-=(const Toy& toy);
 		friend std::ostream& operator << (std::ostream& os, const ConfirmOrder& c);
 	private:
 		const Toy** toys{};

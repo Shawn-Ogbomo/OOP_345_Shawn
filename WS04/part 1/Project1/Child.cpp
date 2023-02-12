@@ -20,6 +20,25 @@ namespace sdds {
 		*this = c;
 	}
 
+	Child::Child(Child&& c) {
+		*this = std::move(c);
+	}
+
+	Child& Child::operator=(Child&& right) {
+		if (this != &right) {
+			delete[] toys;
+			name = right.name;
+			age = right.age;
+			count = right.count;
+			toys = right.toys;
+			right.toys = nullptr;
+			right.name = "";
+			right.age = {};
+			right.count = {};
+		}
+		return *this;
+	}
+
 	size_t Child::size() const {
 		return count;
 	}
@@ -31,7 +50,7 @@ namespace sdds {
 			count = right.count;
 			toys = new const Toy * [count];
 			for (auto i = 0u; i < count; ++i) {
-				this->toys[i] = right.toys[i];
+				toys[i] = right.toys[i];
 			}
 		}
 		return *this;

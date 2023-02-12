@@ -12,7 +12,7 @@ namespace sdds {
 		age{ age },
 		count{ count },
 		toys{ new const Toy * [count] } {
-		for (int i = 0; i < count; ++i) {
+		for (unsigned i = 0; i < count; ++i) {
 			this->toys[i] = toys[i];
 		}
 	}
@@ -22,6 +22,13 @@ namespace sdds {
 
 	Child::Child(Child&& c) {
 		*this = std::move(c);
+	}
+
+	Child::~Child() {
+		for (unsigned i{}; i < count; ++i) {
+			delete toys[i];
+		}
+		delete[] toys;
 	}
 
 	Child& Child::operator=(Child&& right) {
@@ -49,7 +56,7 @@ namespace sdds {
 			age = right.age;
 			count = right.count;
 			toys = new const Toy * [count];
-			for (auto i = 0u; i < count; ++i) {
+			for (unsigned i = 0; i < count; ++i) {
 				toys[i] = right.toys[i];
 			}
 		}
@@ -64,7 +71,7 @@ namespace sdds {
 		}
 		os << "--------------------------\n" << "Child" << CALL_CNT << ": " << c.name << "  " << c.age << " years old:"
 			<< "\n--------------------------\n";
-		for (auto i = 0; i < c.count; ++i) {
+		for (auto i = 0u; i < c.count; ++i) {
 			os << *c.toys[i];
 		}
 		os << "--------------------------\n";

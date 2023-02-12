@@ -16,6 +16,7 @@ namespace sdds {
 		Child(std::string name, int age, const Toy* toys[], size_t count);
 		Child(const Child& c);
 		Child(Child&& c);
+		~Child();
 		Child& operator =(Child&& right);
 		Child& operator = (const Child& right);
 		size_t size() const;

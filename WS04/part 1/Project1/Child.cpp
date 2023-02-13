@@ -25,10 +25,10 @@ namespace sdds {
 	}
 
 	Child::~Child() {
-		/*	for (unsigned i{}; i < count; ++i) {
-				delete toys[i];
-			}
-			delete[] toys;*/
+		for (unsigned i{}; i < count; ++i) {
+			delete toys[i];
+		}
+		delete[] toys;
 	}
 
 	Child& Child::operator=(Child&& right) {

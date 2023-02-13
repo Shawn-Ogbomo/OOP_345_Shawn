@@ -20,12 +20,12 @@ namespace sdds {
 		++count;
 		if (count > 1) {
 			const Toy** temp = new const Toy * [count - 1];
-			for (int i = 0; i < count - 1; ++i) {
+			for (unsigned i = 0; i < count - 1; ++i) {
 				temp[i] = toys[i];
 			}
 			delete[] toys;
 			toys = new const Toy * [count];
-			for (int i = 0; i < count - 1; ++i) {
+			for (unsigned i = 0; i < count - 1; ++i) {
 				toys[i] = temp[i];
 			}
 			toys[count - 1] = &toy;
@@ -37,11 +37,11 @@ namespace sdds {
 		return *this;
 	}
 	ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy) {			//fix this
-		for (unsigned i = 0; i < count; ++i) {
+		/*for (unsigned i = 0; i < count; ++i) {
 			if (toys[i] == &toy) {
 				toys[i] = nullptr;
 				const Toy** temp = new const Toy * [count - 1];
-				for (int j = 0; j < count - 1; ++j) {
+				for (unsigned j = 0; j < count - 1; ++j) {
 					if (toys[j]) {
 						temp[j] = toys[j];
 					}
@@ -53,13 +53,33 @@ namespace sdds {
 				--count;
 				delete[] toys;
 				toys = new const Toy * [count];
-				for (int k = 0; k < count; ++k) {
+				for (unsigned k = 0; k < count - 1; ++k) {
 					toys[k] = temp[k];
 				}
 				delete[] temp;
 				return *this;
 			}
 		}
+		return *this;*/
+		for (unsigned i = 0; i < count; ++i)
+			if (toys[i] == &toy) {
+				toys[i] = nullptr;
+				const Toy** temp = new const Toy * [count - 1];
+				for (unsigned j = 0, k = 0; j < count; ++j) {
+					if (toys[j]) {
+						temp[k] = toys[j];
+						++k;
+					}
+				}
+				delete[] toys;
+				--count;
+				toys = new const Toy * [count];
+				for (unsigned i = 0; i < count; ++i) {
+					toys[i] = temp[i];
+				}
+				delete[] temp;
+				return *this;
+			}
 		return *this;
 	}
 	std::ostream& operator<<(std::ostream& os, const ConfirmOrder& c) {

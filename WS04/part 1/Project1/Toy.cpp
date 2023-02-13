@@ -26,7 +26,7 @@ namespace sdds {
 		std::string id;
 		std::string qty;
 		std::string total;
-		for (auto i = 0; i < toy.size(); ++i) {
+		for (unsigned i = 0; i < toy.size(); ++i) {
 			switch (toy[i]) {
 			case '0':
 			case '1':
@@ -55,15 +55,18 @@ namespace sdds {
 				}
 				break;
 			}
+
 			default:
 				if (isalpha(toy[i])) {
 					std::string s;
-					while (isalpha(toy[i]) || isspace(toy[i]))
-					{
+					while (isalpha(toy[i]) || isspace(toy[i])) {
 						s += toy[i];
 						++i;
 					}
 					name = s;
+					if (isspace(name[name.size() - 1])) {
+						name.erase(name.size()-1);
+					}
 					break;
 				}
 			}

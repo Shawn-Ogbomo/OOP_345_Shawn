@@ -13,7 +13,7 @@ namespace sdds {
 		count{ count },
 		toys{ new const Toy * [count] } {
 		for (unsigned i = 0; i < count; ++i) {
-			this->toys[i] = toys[i];
+			this->toys[i] = new const Toy{ *toys[i] };
 		}
 	}
 	Child::Child(const Child& c) {
@@ -33,6 +33,9 @@ namespace sdds {
 
 	Child& Child::operator=(Child&& right) {
 		if (this != &right) {
+			for (unsigned i = 0; i < count; ++i) {
+				delete toys[i];
+			}
 			delete[] toys;
 			name = right.name;
 			age = right.age;
@@ -49,15 +52,18 @@ namespace sdds {
 	size_t Child::size() const {
 		return count;
 	}
-	Child& Child::operator=(const Child& right) {
+	Child& Child::operator=(const Child& right) {				//fix this
 		if (this != &right) {
+			for (unsigned i = 0; i < count; ++i) {
+				delete toys[i];
+			}
 			delete[] toys;
 			name = right.name;
 			age = right.age;
 			count = right.count;
 			toys = new const Toy * [count];
 			for (unsigned i = 0; i < count; ++i) {
-				toys[i] = right.toys[i];
+				toys[i] = new const Toy{ *right.toys[i] };
 			}
 		}
 		return *this;

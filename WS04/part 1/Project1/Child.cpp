@@ -7,7 +7,7 @@
 //-----------------------------------------------------------
 #include "Child.h"
 namespace sdds {
-	Child::Child(std::string name, int age, const Toy* toys[], size_t count)
+	Child::Child(const std::string& name, int age, const Toy* toys[], size_t count)
 		: name{ name },
 		age{ age },
 		count{ count },

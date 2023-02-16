@@ -13,11 +13,11 @@
 namespace sdds {
 	class Child {
 	public:
-		Child(std::string name, int age, const Toy* toys[], size_t count);
+		Child(const std::string& name, int age, const Toy* toys[], size_t count);
 		Child(const Child& c);
-		Child(Child&& c);
+		Child(Child&& c) noexcept;
 		~Child();
-		Child& operator =(Child&& right);
+		Child& operator =(Child&& right) noexcept;
 		Child& operator = (const Child& right);
 		size_t size() const;
 	private:

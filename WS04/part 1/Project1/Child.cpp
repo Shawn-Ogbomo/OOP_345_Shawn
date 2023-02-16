@@ -52,7 +52,7 @@ namespace sdds {
 	size_t Child::size() const {
 		return count;
 	}
-	Child& Child::operator=(const Child& right) {				//fix this
+	Child& Child::operator=(const Child& right) {
 		if (this != &right) {
 			for (unsigned i = 0; i < count; ++i) {
 				delete toys[i];

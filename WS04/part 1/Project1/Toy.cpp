@@ -9,20 +9,9 @@
 #include <ios>
 #include "Toy.h"
 namespace sdds {
-	sdds::Toy::Toy()
-		:order_id{},
-		name{},
-		amount{},
-		price{},
-		hst{} {
-	}
+	sdds::Toy::Toy() = default;
 
-	sdds::Toy::Toy(const std::string& toy)
-		:order_id{},
-		name{},
-		amount{},
-		price{},
-		hst{}  {
+	sdds::Toy::Toy(const std::string& toy) {
 		std::string id;
 		std::string qty;
 		std::string total;

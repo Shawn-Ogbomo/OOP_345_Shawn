@@ -15,14 +15,14 @@ namespace sdds {
 		static constexpr int max_id_size = 7;
 	public:
 		Toy();
-		Toy(const std::string& toy);
+		explicit Toy(const std::string& toy);
 		void update(int numItems);
 	private:
-		unsigned order_id;
-		std::string name;
-		unsigned amount;
-		double price;
-		double hst;
+		unsigned order_id{};
+		std::string name{};
+		unsigned amount{};
+		double price{};
+		double hst{};
 		friend std::ostream& operator <<(std::ostream& os, const Toy& t);
 	};
 }

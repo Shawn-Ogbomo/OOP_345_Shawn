@@ -17,7 +17,7 @@ namespace sdds {
 		friend std::ostream& operator << (std::ostream& os, const ConfirmOrder& c);
 	private:
 		const Toy** toys{};
-		unsigned count;
+		unsigned count{};
 	};
 }
 #endif//!SDDS_CONFIRMORDER_H

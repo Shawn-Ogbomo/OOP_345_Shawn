@@ -7,10 +7,8 @@
 //-----------------------------------------------------------
 #include "ConfirmOrder.h"
 namespace sdds {
-	ConfirmOrder::ConfirmOrder()
-		:toys{},
-		count{}	{
-	}
+	ConfirmOrder::ConfirmOrder() = default;
+
 	ConfirmOrder& ConfirmOrder::operator+=(const Toy& toy) {
 		for (unsigned i = 0; i < count; ++i) {
 			if (toys[i] == &toy) {
@@ -19,14 +17,17 @@ namespace sdds {
 		}
 		++count;
 		if (count > 1) {
-			const Toy** temp = new const Toy * [count - 1];
+			const auto** temp = new const Toy * [count - 1];
 			for (unsigned i = 0; i < count - 1; ++i) {
-				temp[i] = toys[i];
+				temp[i] = new const Toy{ *toys[i] };
+			}
+			for (unsigned i = 0; i < count - 1; ++i) {
+				delete toys[i];
 			}
 			delete[] toys;
 			toys = new const Toy * [count];
 			for (unsigned i = 0; i < count - 1; ++i) {
-				toys[i] = temp[i];
+				toys[i] = new const Toy{ *temp[i] };
 			}
 			toys[count - 1] = &toy;
 			delete[] temp;
@@ -36,50 +37,37 @@ namespace sdds {
 		toys[count - 1] = &toy;
 		return *this;
 	}
-	ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy) {			//fix this
-		/*for (unsigned i = 0; i < count; ++i) {
+	ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy) {
+		for (unsigned i = 0; i < count; ++i) {
 			if (toys[i] == &toy) {
 				toys[i] = nullptr;
-				const Toy** temp = new const Toy * [count - 1];
-				for (unsigned j = 0; j < count - 1; ++j) {
+				const auto** temp = new const Toy * [count - 1];
+				for (unsigned j = 0, k = 0; j < count; ++j) {
 					if (toys[j]) {
-						temp[j] = toys[j];
-					}
-					else if (!temp[j] && toys[j + 1]) {
-						temp[j] = toys[j + 1];
-						++j;
+						temp[k] = new const Toy{ *toys[j] };
+						++k;
 					}
 				}
-				--count;
+
+				for (unsigned internal_i = 0; internal_i < count; ++internal_i) {
+					delete toys[internal_i];
+				}
+
 				delete[] toys;
+				--count;
 				toys = new const Toy * [count];
-				for (unsigned k = 0; k < count - 1; ++k) {
-					toys[k] = temp[k];
+
+				for (unsigned internal_j = 0; internal_j < count; ++internal_j) {
+					toys[internal_j] = new const Toy{ *temp[internal_j] };
+				}
+
+				for (unsigned internal_k = 0; internal_k < count; ++internal_k) {
+					delete temp[internal_k];
 				}
 				delete[] temp;
 				return *this;
 			}
 		}
-		return *this;*/
-		for (unsigned i = 0; i < count; ++i)
-			if (toys[i] == &toy) {
-				toys[i] = nullptr;
-				const Toy** temp = new const Toy * [count - 1];
-				for (unsigned j = 0, k = 0; j < count; ++j) {
-					if (toys[j]) {
-						temp[k] = toys[j];
-						++k;
-					}
-				}
-				delete[] toys;
-				--count;
-				toys = new const Toy * [count];
-				for (unsigned i = 0; i < count; ++i) {
-					toys[i] = temp[i];
-				}
-				delete[] temp;
-				return *this;
-			}
 		return *this;
 	}
 	std::ostream& operator<<(std::ostream& os, const ConfirmOrder& c) {

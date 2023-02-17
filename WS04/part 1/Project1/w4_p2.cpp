@@ -147,7 +147,7 @@ int main(int argc, char** argv)
 		order1 += *ppToys[7];
 		order1 += *ppToys[9];
 		std::cout << order1;
-		order1 -= *ppToys[8];
+		order1 -= *ppToys[8];					//-= is not removing anything...
 		order1 -= *ppToys[9];
 		order1 -= *ppToys[7];
 		std::cout << order1;

@@ -20,7 +20,7 @@ namespace sdds {
 		*this = c;
 	}
 
-	Child::Child(Child&& c) {
+	Child::Child(Child&& c) noexcept {
 		*this = std::move(c);
 	}
 
@@ -31,7 +31,7 @@ namespace sdds {
 		delete[] toys;
 	}
 
-	Child& Child::operator=(Child&& right) {
+	Child& Child::operator=(Child&& right) noexcept {
 		if (this != &right) {
 			for (unsigned i = 0; i < count; ++i) {
 				delete toys[i];

@@ -9,6 +9,9 @@
 #define SDDS_BOOK_H_
 #include <string>
 namespace sdds {
+	enum class Field {
+		name = 1, title, nation, description
+	};
 	class Book {
 	public:
 		Book();
@@ -17,6 +20,7 @@ namespace sdds {
 		const std::string& country() const;
 		const size_t& year() const;
 		double& price();
+
 	private:
 		std::string name;
 		std::string nation;

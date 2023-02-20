@@ -75,33 +75,38 @@ int main(int argc, char** argv) {
 	auto update_price{
 		[&america,&united_kingdom,usdToCadRate,gbpToCadRate](Book& b) {
 		if (b.country() == america) {
-			return b.price() + (b.price() * usdToCadRate);
+			return (b.price() * usdToCadRate);
 		}
-		else if (b.country() == united_kingdom) {
-			return b.price() + (b.price() * gbpToCadRate);
+		else if (b.country() == united_kingdom && (b.year() >= 1990 && b.year() <= 1999)) {
+			return  (b.price() * gbpToCadRate);
 		}
+		return b.price();
 	}
 	};
 
-	for (auto& target : library) {
-		update_price(target);
-	}
 	std::cout << "-----------------------------------------\n";
 	std::cout << "The library content\n";
 	std::cout << "-----------------------------------------\n";
 	//// TODO: iterate over the library and print each book to the screen
-
+	for (const auto& book : library) {
+		std::cout << book;
+	}
 	//std::cout << "-----------------------------------------\n\n";
 
 	//// TODO: iterate over the library and update the price of each book
 	////         using the lambda defined above.
 
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "The library content (updated prices)\n";
-	//std::cout << "-----------------------------------------\n";
+	for (auto& target : library) {
+		target.price() = update_price(target);
+	}
+	std::cout << "-----------------------------------------\n";
+	std::cout << "The library content (updated prices)\n";
+	std::cout << "-----------------------------------------\n";
 	//// TODO: iterate over the library and print each book to the screen
+	for (const auto& updated_book : library) {
+		std::cout << updated_book;
+	}
+	std::cout << "-----------------------------------------\n";
 
-	//std::cout << "-----------------------------------------\n";
-
-	//return 0;
+	return 0;
 }

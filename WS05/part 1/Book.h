@@ -20,6 +20,9 @@ namespace sdds {
 		const std::string& country() const;
 		const size_t& year() const;
 		double& price();
+		const std::string& writer() const;
+		const std::string& details() const;
+		friend std::ostream& operator <<(std::ostream& os, const Book& b);
 
 	private:
 		std::string name;

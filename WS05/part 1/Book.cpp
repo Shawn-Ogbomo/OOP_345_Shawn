@@ -82,10 +82,21 @@ namespace sdds {
 	const std::string& sdds::Book::country() const {
 		return nation;
 	}
+	const std::string& Book::writer() const {
+		return author;
+	}
+	const std::string& Book::details() const {
+		return description;
+	}
 	const size_t& sdds::Book::year() const {
 		return yr;
 	}
 	double& sdds::Book::price() {
 		return cost;
+	}
+
+	std::ostream& operator<<(std::ostream& os, const Book& b) {
+		return os << b.writer() << "\n" << b.title() << "\n" << b.country() <<
+			"\n" << b.year() << "\n" << b.cost << "\n" << b.details() << "\n";
 	}
 }

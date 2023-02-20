@@ -10,7 +10,7 @@
 #include <string>
 namespace sdds {
 	enum class Field {
-		name = 1, title, nation, description
+		name = 1, title, nation, price, year, description,
 	};
 	class Book {
 	public:

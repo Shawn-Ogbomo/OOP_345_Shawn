@@ -41,22 +41,16 @@ int main(int argc, char** argv) {
 		}
 		long long valid_pos{};
 		while (ifs) {
-			std::string t;
-			std::getline(ifs, t);
+			std::string s;
+			std::getline(ifs, s);
 			if (ifs.peek() != '#') {
 				valid_pos = ifs.tellg();
 				break;
 			}
 		}
+
 		ifs.seekg(valid_pos);
-		int num_recs{};
-		while (!ifs.eof()) {
-			std::string s;
-			std::getline(ifs, s);
-			++num_recs;
-		}
-		ifs.seekg(valid_pos);
-		for (auto i = 0; i < num_recs; ++i) {
+		for (auto i = 0; !ifs.eof(); ++i) {
 			std::string internal_s;
 			std::getline(ifs, internal_s);
 			library[i] = Book{ internal_s };
@@ -67,8 +61,8 @@ int main(int argc, char** argv) {
 		exit(AppErrors::BadArgumentCount);
 	}
 
-	//double usdToCadRate = 1.3;
-	//double gbpToCadRate = 1.5;
+	double usdToCadRate = 1.3;
+	double gbpToCadRate = 1.5;
 
 	//// TODO: create a lambda expression that fixes the price of a book accoding to the rules
 	////       - the expression should receive a single parameter of type "Book&"
@@ -76,10 +70,25 @@ int main(int argc, char** argv) {
 	////            and save the new price in the book object
 	////       - if the book was published in UK between 1990 and 1999 (inclussive),
 	////            multiply the price with "gbpToCadRate" and save the new price in the book object
+	const std::string america = "US";
+	const std::string united_kingdom = "UK";
+	auto update_price{
+		[&america,&united_kingdom,usdToCadRate,gbpToCadRate](Book& b) {
+		if (b.country() == america) {
+			return b.price() + (b.price() * usdToCadRate);
+		}
+		else if (b.country() == united_kingdom) {
+			return b.price() + (b.price() * gbpToCadRate);
+		}
+	}
+	};
 
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "The library content\n";
-	//std::cout << "-----------------------------------------\n";
+	for (auto& target : library) {
+		update_price(target);
+	}
+	std::cout << "-----------------------------------------\n";
+	std::cout << "The library content\n";
+	std::cout << "-----------------------------------------\n";
 	//// TODO: iterate over the library and print each book to the screen
 
 	//std::cout << "-----------------------------------------\n\n";

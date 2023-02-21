@@ -25,14 +25,13 @@ enum AppErrors
 
 //// The observer function for adding books to the collection:
 ////   should be called every time a new book is added to the collection
-//void bookAddedObserver(const Collection<Book>& theCollection,
-//	const Book& theBook)
-//{
-//	std::cout << "Book \"" << theBook.title() << "\" added!\n";
-//}
+void bookAddedObserver(const Collection<Book>& theCollection, const Book& theBook)
+{
+	std::cout << "Book \"" << theBook.title() << "\" added!\n";
+}
 //
-//// The observer function for adding movies to the collection:
-////   should be called every time a new movie is added to the collection
+// The observer function for adding movies to the collection:
+//   should be called every time a new movie is added to the collection
 //void movieAddedObserver(const Collection<Movie>& theCollection,
 //	const Movie& theMovie)
 //{
@@ -50,14 +49,14 @@ int main(int argc, char** argv)
 		std::cout << std::setw(3) << i + 1 << ": " << argv[i] << '\n';
 	std::cout << "--------------------------\n\n";
 	// get the books
-	//sdds::Collection<sdds::Book> library("Bestsellers");
-	//if (argc == 5) {
-	//	// TODO: load the first 4 books from the file "argv[1]".
-	//	//       - read one line at a time, and pass it to the Book constructor
-	//	//       - store each book read into the collection "library" (use the += operator)
-	//	//       - lines that start with "#" are considered comments and should be ignored
-	//	//       - if the file cannot be open, print a message to standard error console and
-	//	//                exit from application with error code "AppErrors::CannotOpenFile"
+	sdds::Collection<sdds::Book> library("Bestsellers");
+	if (argc == 5) {
+		// TODO: load the first 4 books from the file "argv[1]".
+		//       - read one line at a time, and pass it to the Book constructor
+		//       - store each book read into the collection "library" (use the += operator)
+		//       - lines that start with "#" are considered comments and should be ignored
+		//       - if the file cannot be open, print a message to standard error console and
+		//                exit from application with error code "AppErrors::CannotOpenFile"
 
 	//	/*
 	//	/*
@@ -67,18 +66,42 @@ int main(int argc, char** argv)
 	//	 ♪ So, if something happens, ♪    (event)
 	//	 ♪ Call me, maybe?           ♪    (callback)
 	//	 */
-	//	library.setObserver(bookAddedObserver);
+		constexpr auto max_books = 4;
+		auto book_count = 0;
+		long long current_pos = 0;
+		std::ifstream ifs{ argv[1] };
+		while (book_count < max_books) {
+			std::string s;
+			std::getline(ifs, s);
+			if (s.front() == '#') {
+				continue;
+			}
+			if (s.front() != '#') {
+				library += Book{ s };
+				++book_count;
+			}
+			if (book_count == max_books) {
+				current_pos = ifs.tellg();
+			}
+		}
+		library.setObserver(bookAddedObserver);
 
-	//	// TODO: add the rest of the books from the file.
-	//}
-	//else
-	//{
-	//	std::cerr << "ERROR: Incorrect number of arguments.\n";
-	//	exit(AppErrors::BadArgumentCount);
-	//}
+		//	// TODO: add the rest of the books from the file.
+		ifs.seekg(current_pos);
+		while (!ifs.eof()) {
+			std::string internal_s;
+			std::getline(ifs, internal_s);
+			library += Book{ internal_s };
+		}
+	}
+	else
+	{
+		std::cerr << "ERROR: Incorrect number of arguments.\n";
+		exit(AppErrors::BadArgumentCount);
+	}
 
-	//double usdToCadRate = 1.3;
-	//double gbpToCadRate = 1.5;
+	double usdToCadRate = 1.3;
+	double gbpToCadRate = 1.5;
 
 	//// TODO: (from part #1) create a lambda expression that fixes the price of a book accoding to the rules
 	////       - the expression should receive a single parameter of type "Book&"
@@ -86,21 +109,33 @@ int main(int argc, char** argv)
 	////            and save the new price in the book object
 	////       - if the book was published in UK between 1990 and 1999 (inclussive),
 	////            multiply the price with "gbpToCadRate" and save the new price in the book object
-
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "The library content\n";
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << library;
-	//std::cout << "-----------------------------------------\n\n";
+	const std::string america = "US";
+	const std::string united_kingdom = "UK";
+	auto update_price{
+		[&america,&united_kingdom,usdToCadRate,gbpToCadRate](Book& b) {
+		if (b.country() == america) {
+			return (b.price() * usdToCadRate);
+		}
+		else if (b.country() == united_kingdom && (b.year() >= 1990 && b.year() <= 1999)) {
+			return  (b.price() * gbpToCadRate);
+		}
+		return b.price();
+	}
+	};
+	std::cout << "-----------------------------------------\n";
+	std::cout << "The library content\n";
+	std::cout << "-----------------------------------------\n";
+	std::cout << library;
+	std::cout << "-----------------------------------------\n\n";
 
 	//// TODO (from part #1): iterate over the library and update the price of each book
 	////         using the lambda defined above.
 
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "The library content (updated prices)\n";
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << library;
-	//std::cout << "-----------------------------------------\n\n";
+	std::cout << "-----------------------------------------\n";
+	std::cout << "The library content (updated prices)\n";
+	std::cout << "-----------------------------------------\n";
+	std::cout << library;
+	std::cout << "-----------------------------------------\n\n";
 
 	//Collection<Movie> theCollection("Action Movies");
 

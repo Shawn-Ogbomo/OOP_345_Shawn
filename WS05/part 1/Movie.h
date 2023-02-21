@@ -8,16 +8,20 @@
 #ifndef SDDS_MOVIE_H_
 #define SDDS_MOVIE_H_
 #include <string>
+#include <fstream>
 namespace sdds {
 	class Movie {
 	public:
 		Movie();
 		explicit Movie(const std::string& strMovie);
 		const std::string& title() const;
+		int year() const;
+		const std::string& description() const;
 	private:
 		std::string name;
 		int yr{};
 		std::string details;
 	};
+	std::ostream& operator <<(std::ostream& os, const Movie& m);
 }
 #endif//!SDDS_MOVIE_H

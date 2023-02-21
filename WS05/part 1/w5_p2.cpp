@@ -146,6 +146,24 @@ int main(int argc, char** argv)
 		//       - read one line at a time, and pass it to the Movie constructor
 		//       - store each movie read into the array "movies"
 		//       - lines that start with "#" are considered comments and should be ignored
+		constexpr auto max_books = 5;
+		auto book_count = 0;
+		long long current_pos = 0;
+		std::ifstream ifs{ argv[2] };
+		while (book_count < max_books) {
+			std::string s;
+			std::getline(ifs, s);
+			if (s.front() == '#') {
+				continue;
+			}
+			if (s.front() != '#') {
+				library += Book{ s };
+				++book_count;
+			}
+			if (book_count == max_books) {
+				current_pos = ifs.tellg();
+			}
+		}
 	}
 
 	std::cout << "-----------------------------------------\n";
@@ -171,17 +189,17 @@ int main(int argc, char** argv)
 	std::cout << "-----------------------------------------\n";
 
 	//// TODO: The following loop can generate generate an exception
-	////         write code to handle the exception
-	////       If an exception occurs print a message in the following format
-	////** EXCEPTION: ERROR_MESSAGE<endl>
-	////         where ERROR_MESSAGE is extracted from the exception object.
-	//for (auto i = 0u; i < 10; ++i)
-	//	std::cout << theCollection[i];
+	//         write code to handle the exception
+	//       If an exception occurs print a message in the following format
+	//** EXCEPTION: ERROR_MESSAGE<endl>
+	//         where ERROR_MESSAGE is extracted from the exception object.
+	for (auto i = 0u; i < 10; ++i)
+		std::cout << theCollection[i];
 
-	//std::cout << "-----------------------------------------\n\n";
+	std::cout << "-----------------------------------------\n\n";
 
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "Testing the functor\n";
+	std::cout << "-----------------------------------------\n";
+	std::cout << "Testing the functor\n";
 	//std::cout << "-----------------------------------------\n";
 	//for (auto i = 3; i < argc; ++i)
 	//{

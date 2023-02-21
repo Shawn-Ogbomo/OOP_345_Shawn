@@ -69,4 +69,14 @@ namespace sdds {
 	const std::string& Movie::title() const {
 		return name;
 	}
+	int Movie::year() const {
+		return yr;
+	}
+	const std::string& Movie::description() const {
+		return details;
+	}
+	std::ostream& operator<<(std::ostream& os, const Movie& m) {
+		os << m.title() << "     " << m.year() << "     " << m.description();
+		return os;
+	}
 }

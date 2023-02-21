@@ -137,7 +137,7 @@ int main(int argc, char** argv)
 	std::cout << library;
 	std::cout << "-----------------------------------------\n\n";
 
-	//Collection<Movie> theCollection("Action Movies");
+	/*Collection<Movie> theCollection("Action Movies");*/
 
 	//// Process the file
 	//Movie movies[5];

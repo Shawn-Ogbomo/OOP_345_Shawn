@@ -5,7 +5,7 @@
 //I have done all the coding by myself and only copied the code
 //that my professor provided to complete my workshops and assignments
 //-----------------------------------------------------------
-//#include <functional>
+#include <iostream>
 #ifndef SDDS_COLLECTION_H_
 #define SDDS_COLLECTION_H_
 namespace sdds {
@@ -41,30 +41,42 @@ namespace sdds {
 				}
 
 			auto* temp = new T[capacity];
-			//copy everything from items into temp
 			for (unsigned i = 0; i < capacity; ++i) {
 				temp[i] = items[i];
 			}
-			//delete items
 			delete[] items;
 
-			//create another items array with updated size
 			items = new T[capacity + 1];
-			// copy everything back
 			for (unsigned i = 0; i < capacity; ++i) {
 				items[i] = temp[i];
 			}
-			//delete temp
 			delete[] temp;
-			//add the item to items
-			//increase the capacity by 1
 			++capacity;
-			//try minus 1 capacity so you dont go into the terminating byte
 			items[capacity - 1] = item;
 			if (fcnptr) {
 				fcnptr(*this, item);
 			}
 			return *this;
+		}
+		friend std::ostream& operator<<(std::ostream& os, const Collection<T>& c) {
+			for (unsigned i = 0; i < c.capacity; ++i) {
+				std::cout << c.items[i];
+			}
+			return os;
+		}
+		T& operator[](size_t idx) const {
+			if (capacity <= idx) {
+				throw std::out_of_range{ "oops index " + std::to_string(idx) + "is out of range" };
+			}
+			return items[idx];
+		}
+		T* operator[](const std::string& title) const {
+			for (auto i = 0; i < capacity; ++i) {
+				if (items[i].title() == title) {
+					return items[i];
+				}
+			}
+			return nullptr;
 		}
 	private:
 		std::string label{};
@@ -72,6 +84,5 @@ namespace sdds {
 		unsigned capacity{};
 		void(*fcnptr)(const Collection<T>&, const T&) {};
 	};
-	//std::ostream& operator << (std::ostream& os, const Collection& c);
 }
 #endif//!SDDS_COLLECTION_H

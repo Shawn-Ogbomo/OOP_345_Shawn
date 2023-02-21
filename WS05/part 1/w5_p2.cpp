@@ -10,8 +10,8 @@
 #include "Collection.h"
 #include "Book.h"
 #include "Book.h"
-//#include "Movie.h"
-//#include "Movie.h"
+#include "Movie.h"
+#include "Movie.h"
 #include "SpellChecker.h"
 #include "SpellChecker.h"
 
@@ -32,13 +32,13 @@ void bookAddedObserver(const Collection<Book>& theCollection, const Book& theBoo
 //
 // The observer function for adding movies to the collection:
 //   should be called every time a new movie is added to the collection
-//void movieAddedObserver(const Collection<Movie>& theCollection,
-//	const Movie& theMovie)
-//{
-//	std::cout << "Movie \"" << theMovie.title()
-//		<< "\" added to collection \"" << theCollection.name()
-//		<< "\" (" << theCollection.size() << " items).\n";
-//}
+void movieAddedObserver(const Collection<Movie>& theCollection,
+	const Movie& theMovie)
+{
+	std::cout << "Movie \"" << theMovie.title()
+		<< "\" added to collection \"" << theCollection.name()
+		<< "\" (" << theCollection.size() << " items).\n";
+}
 
 // ws books.txt movies.txt file_missing.txt file_words.txt
 int main(int argc, char** argv)
@@ -137,38 +137,38 @@ int main(int argc, char** argv)
 	std::cout << library;
 	std::cout << "-----------------------------------------\n\n";
 
-	/*Collection<Movie> theCollection("Action Movies");*/
+	Collection<Movie> theCollection("Action Movies");
 
 	//// Process the file
-	//Movie movies[5];
-	//if (argc > 2) {
-	//	// TODO: load 5 movies from the file "argv[2]".
-	//	//       - read one line at a time, and pass it to the Movie constructor
-	//	//       - store each movie read into the array "movies"
-	//	//       - lines that start with "#" are considered comments and should be ignored
-	//}
+	Movie movies[5];
+	if (argc > 2) {
+		// TODO: load 5 movies from the file "argv[2]".
+		//       - read one line at a time, and pass it to the Movie constructor
+		//       - store each movie read into the array "movies"
+		//       - lines that start with "#" are considered comments and should be ignored
+	}
 
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "Testing addition and callback function\n";
-	//std::cout << "-----------------------------------------\n";
-	//if (argc > 2) {
-	//	// Add a few movies to collection; no observer is set
-	//	((theCollection += movies[0]) += movies[1]) += movies[2];
-	//	theCollection += movies[1];
-	//	// add more movies; now we get a callback from the collection
-	//	theCollection.setObserver(movieAddedObserver);
-	//	theCollection += movies[3];
-	//	theCollection += movies[3];
-	//	theCollection += movies[4];
-	//}
-	//else {
-	//	std::cout << "** No movies in the Collection\n";
-	//}
-	//std::cout << "-----------------------------------------\n\n";
+	std::cout << "-----------------------------------------\n";
+	std::cout << "Testing addition and callback function\n";
+	std::cout << "-----------------------------------------\n";
+	if (argc > 2) {
+		// Add a few movies to collection; no observer is set
+		((theCollection += movies[0]) += movies[1]) += movies[2];
+		theCollection += movies[1];
+		// add more movies; now we get a callback from the collection
+		theCollection.setObserver(movieAddedObserver);
+		theCollection += movies[3];
+		theCollection += movies[3];
+		theCollection += movies[4];
+	}
+	else {
+		std::cout << "** No movies in the Collection\n";
+	}
+	std::cout << "-----------------------------------------\n\n";
 
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "Testing exceptions and operator[]\n";
-	//std::cout << "-----------------------------------------\n";
+	std::cout << "-----------------------------------------\n";
+	std::cout << "Testing exceptions and operator[]\n";
+	std::cout << "-----------------------------------------\n";
 
 	//// TODO: The following loop can generate generate an exception
 	////         write code to handle the exception

@@ -11,7 +11,8 @@
 namespace sdds {
 	class Movie {
 	public:
-		Movie(const std::string& strMovie);
+		Movie();
+		explicit Movie(const std::string& strMovie);
 		const std::string& title() const;
 	private:
 		std::string name;

@@ -8,7 +8,8 @@ namespace sdds {
 
 	Book::Book(const std::string& strBook) {
 		static int pos = 1;
-		for (unsigned i = 0; i < strBook.size(); ++i) {
+		const unsigned max_size = strBook.size();
+		for (unsigned i = 0; i < max_size; ++i) {
 			switch (strBook[i]) {
 			case '0':
 			case '1':

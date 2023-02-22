@@ -5,6 +5,7 @@
 //I have done all the coding by myself and only copied the code
 //that my professor provided to complete my workshops and assignments
 //-----------------------------------------------------------
+#include <iomanip>
 #include "Movie.h"
 #include "Book.h"
 namespace sdds {
@@ -76,7 +77,6 @@ namespace sdds {
 		return details;
 	}
 	std::ostream& operator<<(std::ostream& os, const Movie& m) {
-		os << m.title() << "     " << m.year() << "     " << m.description();
-		return os;
+		return os << std::setw(40) << m.title() << " | " << std::right << std::setw(4) << m.year() << " | " << m.description() << "\n";
 	}
 }

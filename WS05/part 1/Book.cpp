@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctype.h>
 #include <stdlib.h>
+#include <iomanip>
 #include "Book.h"
 namespace sdds {
 	Book::Book() = default;
@@ -97,7 +98,6 @@ namespace sdds {
 	}
 
 	std::ostream& operator<<(std::ostream& os, const Book& b) {
-		return os << b.writer() << "\n" << b.title() << "\n" << b.country() <<
-			"\n" << b.year() << "\n" << b.cost << "\n" << b.details() << "\n";
+		return os << std::setw(20) << b.writer() << " |" << std::right << std::setw(23) << b.title() << " |" << std::setw(6) << b.country() << " |" << std::setw(5) << b.year() << " |" << std::setw(6) << std::setprecision(2) << std::fixed << b.cost << " | " << b.details() << "\n";
 	}
 }

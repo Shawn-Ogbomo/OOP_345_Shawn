@@ -33,7 +33,7 @@ namespace sdds {
 						++i;
 					}
 					yr = std::stoi(s);
-					pos += static_cast<int>(sdds::Field::title);
+					pos += static_cast<int>(sdds::Field::name);
 				}
 				break;
 			}
@@ -46,7 +46,7 @@ namespace sdds {
 							++i;
 						}
 						name = internal_s;
-						pos += static_cast<int>(sdds::Field::title);
+						pos += static_cast<int>(sdds::Field::nation);
 					}
 					else if (pos == static_cast<int>(sdds::Field::description)) {
 						while ((isalpha(strMovie[i]) || isspace(strMovie[i]) || ispunct(strMovie[i])) && (pos == static_cast<int>(sdds::Field::description))) {
@@ -55,11 +55,11 @@ namespace sdds {
 						}
 						details = internal_s;
 					}
-					while (isspace(internal_s.back())) {
-						internal_s.pop_back();
+					while (isspace(name.back())) {
+						name.pop_back();
 					}
 					if (pos >= static_cast<int>(sdds::Field::description)) {
-						pos = 1;
+						pos = 2;
 					}
 					break;
 				}

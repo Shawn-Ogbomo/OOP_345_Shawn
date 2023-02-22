@@ -23,7 +23,9 @@ namespace sdds {
 		const std::string& writer() const;
 		const std::string& details() const;
 		friend std::ostream& operator <<(std::ostream& os, const Book& b);
-
+		template <typename T>
+		void fixSpelling(T& spellChecker) {
+		}
 	private:
 		std::string name;
 		std::string nation;

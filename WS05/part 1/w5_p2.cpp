@@ -192,7 +192,7 @@ int main(int argc, char** argv)
 		//         where ERROR_MESSAGE is extracted from the exception object.
 		for (auto i = 0u; i < 10; ++i) {
 			if (i >= max_movies) {
-				throw std::out_of_range{ "oops, you're attempting to access invalid memory" };
+				throw std::out_of_range{ "** EXCEPTION: Bad index [" + std::to_string(i) + "] Collection has[" + std::to_string(i) + "]items." };
 			}
 			std::cout << theCollection[i];
 		}
@@ -210,13 +210,15 @@ int main(int argc, char** argv)
 			//	//** EXCEPTION: ERROR_MESSAGE<endl>
 			//	//         where ERROR_MESSAGE is extracted from the exception object.
 			SpellChecker sp(argv[i]);
-			for (auto j = 0u; j < library.size(); ++j)
+			for (auto j = 0u; j < library.size(); ++j) {
 				library[j].fixSpelling(sp);
-			sp.showStatistics(std::cout);
+			}
+			/*sp.showStatistics(std::cout);
 
-			for (auto j = 0u; j < theCollection.size(); ++j)
+			for (auto j = 0u; j < theCollection.size(); ++j) {
 				theCollection[j].fixSpelling(sp);
-			sp.showStatistics(std::cout);
+			}
+			sp.showStatistics(std::cout);*/
 		}
 		//if (argc < 3) {
 		//	std::cout << "** Spellchecker is empty\n";

@@ -20,5 +20,6 @@ namespace sdds {
 		}
 	}
 	void SpellChecker::operator()(std::string& text) {
+		//count how many times a bad word has been replaced...
 	}
 }

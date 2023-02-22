@@ -43,202 +43,411 @@ void movieAddedObserver(const Collection<Movie>& theCollection,
 // ws books.txt movies.txt file_missing.txt file_words.txt
 int main(int argc, char** argv)
 {
-	std::cout << "Command Line:\n";
-	std::cout << "--------------------------\n";
-	for (int i = 0; i < argc; i++)
-		std::cout << std::setw(3) << i + 1 << ": " << argv[i] << '\n';
-	std::cout << "--------------------------\n\n";
-	// get the books
-	sdds::Collection<sdds::Book> library("Bestsellers");
-	if (argc == 5) {
-		// TODO: load the first 4 books from the file "argv[1]".
-		//       - read one line at a time, and pass it to the Book constructor
-		//       - store each book read into the collection "library" (use the += operator)
-		//       - lines that start with "#" are considered comments and should be ignored
-		//       - if the file cannot be open, print a message to standard error console and
-		//                exit from application with error code "AppErrors::CannotOpenFile"
+	try {
+		std::cout << "Command Line:\n";
+		std::cout << "--------------------------\n";
+		for (int i = 0; i < argc; i++)
+			std::cout << std::setw(3) << i + 1 << ": " << argv[i] << '\n';
+		std::cout << "--------------------------\n\n";
+		// get the books
+		sdds::Collection<sdds::Book> library("Bestsellers");
+		if (argc == 5) {
+			// TODO: load the first 4 books from the file "argv[1]".
+			//       - read one line at a time, and pass it to the Book constructor
+			//       - store each book read into the collection "library" (use the += operator)
+			//       - lines that start with "#" are considered comments and should be ignored
+			//       - if the file cannot be open, print a message to standard error console and
+			//                exit from application with error code "AppErrors::CannotOpenFile"
 
-	//	/*
-	//	/*
-	//	 ♪ Hey, I just met you,      ♪
-	//	 ♪ And this is crazy,        ♪
-	//	 ♪ But here's my number.     ♪    (register the observer)
-	//	 ♪ So, if something happens, ♪    (event)
-	//	 ♪ Call me, maybe?           ♪    (callback)
-	//	 */
-		constexpr auto max_books = 4;
-		auto book_count = 0;
-		long long current_pos = 0;
-		std::ifstream ifs{ argv[1] };
-		while (book_count < max_books) {
-			std::string s;
-			std::getline(ifs, s);
-			if (s.front() == '#') {
-				continue;
+		//	/*
+		//	/*
+		//	 ♪ Hey, I just met you,      ♪
+		//	 ♪ And this is crazy,        ♪
+		//	 ♪ But here's my number.     ♪    (register the observer)
+		//	 ♪ So, if something happens, ♪    (event)
+		//	 ♪ Call me, maybe?           ♪    (callback)
+		//	 */
+			constexpr auto max_books = 4;
+			auto book_count = 0;
+			long long current_pos = 0;
+			std::ifstream ifs{ argv[1] };
+			while (book_count < max_books) {
+				std::string s;
+				std::getline(ifs, s);
+				if (s.front() == '#') {
+					continue;
+				}
+				if (s.front() != '#') {
+					library += Book{ s };
+					++book_count;
+				}
+				if (book_count == max_books) {
+					current_pos = ifs.tellg();
+				}
 			}
-			if (s.front() != '#') {
-				library += Book{ s };
-				++book_count;
-			}
-			if (book_count == max_books) {
-				current_pos = ifs.tellg();
-			}
-		}
-		library.setObserver(bookAddedObserver);
+			library.setObserver(bookAddedObserver);
 
-		//	// TODO: add the rest of the books from the file.
-		ifs.seekg(current_pos);
-		while (!ifs.eof()) {
-			std::string internal_s;
-			std::getline(ifs, internal_s);
-			library += Book{ internal_s };
-		}
-	}
-	else
-	{
-		std::cerr << "ERROR: Incorrect number of arguments.\n";
-		exit(AppErrors::BadArgumentCount);
-	}
-
-	double usdToCadRate = 1.3;
-	double gbpToCadRate = 1.5;
-
-	//// TODO: (from part #1) create a lambda expression that fixes the price of a book accoding to the rules
-	////       - the expression should receive a single parameter of type "Book&"
-	////       - if the book was published in US, multiply the price with "usdToCadRate"
-	////            and save the new price in the book object
-	////       - if the book was published in UK between 1990 and 1999 (inclussive),
-	////            multiply the price with "gbpToCadRate" and save the new price in the book object
-	const std::string america = "US";
-	const std::string united_kingdom = "UK";
-	auto update_price{
-		[&america,&united_kingdom,usdToCadRate,gbpToCadRate](Book& b) {
-		if (b.country() == america) {
-			return (b.price() * usdToCadRate);
-		}
-		else if (b.country() == united_kingdom && (b.year() >= 1990 && b.year() <= 1999)) {
-			return  (b.price() * gbpToCadRate);
-		}
-		return b.price();
-	}
-	};
-	std::cout << "-----------------------------------------\n";
-	std::cout << "The library content\n";
-	std::cout << "-----------------------------------------\n";
-	std::cout << library;
-	std::cout << "-----------------------------------------\n\n";
-
-	//// TODO (from part #1): iterate over the library and update the price of each book
-	////         using the lambda defined above.
-
-	std::cout << "-----------------------------------------\n";
-	std::cout << "The library content (updated prices)\n";
-	std::cout << "-----------------------------------------\n";
-	std::cout << library;
-	std::cout << "-----------------------------------------\n\n";
-
-	Collection<Movie> theCollection("Action Movies");
-
-	//// Process the file
-	Movie movies[5];
-	if (argc > 2) {
-		// TODO: load 5 movies from the file "argv[2]".
-		//       - read one line at a time, and pass it to the Movie constructor
-		//       - store each movie read into the array "movies"
-		//       - lines that start with "#" are considered comments and should be ignored
-		constexpr auto max_books = 5;
-		auto book_count = 0;
-		long long current_pos = 0;
-		std::ifstream ifs{ argv[2] };
-		while (book_count < max_books) {
-			std::string s;
-			std::getline(ifs, s);
-			if (s.front() == '#') {
-				continue;
-			}
-			if (s.front() != '#') {
-				library += Book{ s };
-				++book_count;
-			}
-			if (book_count == max_books) {
-				current_pos = ifs.tellg();
+			//	// TODO: add the rest of the books from the file.
+			ifs.seekg(current_pos);
+			while (!ifs.eof()) {
+				std::string internal_s;
+				std::getline(ifs, internal_s);
+				library += Book{ internal_s };
 			}
 		}
+		else
+		{
+			std::cerr << "ERROR: Incorrect number of arguments.\n";
+			exit(AppErrors::BadArgumentCount);
+		}
+
+		double usdToCadRate = 1.3;
+		double gbpToCadRate = 1.5;
+
+		//// TODO: (from part #1) create a lambda expression that fixes the price of a book accoding to the rules
+		////       - the expression should receive a single parameter of type "Book&"
+		////       - if the book was published in US, multiply the price with "usdToCadRate"
+		////            and save the new price in the book object
+		////       - if the book was published in UK between 1990 and 1999 (inclussive),
+		////            multiply the price with "gbpToCadRate" and save the new price in the book object
+		const std::string america = "US";
+		const std::string united_kingdom = "UK";
+		auto update_price{
+			[&america,&united_kingdom,usdToCadRate,gbpToCadRate](Book& b) {
+			if (b.country() == america) {
+				return (b.price() * usdToCadRate);
+			}
+			else if (b.country() == united_kingdom && (b.year() >= 1990 && b.year() <= 1999)) {
+				return  (b.price() * gbpToCadRate);
+			}
+			return b.price();
+		}
+		};
+		std::cout << "-----------------------------------------\n";
+		std::cout << "The library content\n";
+		std::cout << "-----------------------------------------\n";
+		std::cout << library;
+		std::cout << "-----------------------------------------\n\n";
+
+		//// TODO (from part #1): iterate over the library and update the price of each book
+		////         using the lambda defined above.
+
+		std::cout << "-----------------------------------------\n";
+		std::cout << "The library content (updated prices)\n";
+		std::cout << "-----------------------------------------\n";
+		std::cout << library;
+		std::cout << "-----------------------------------------\n\n";
+
+		Collection<Movie> theCollection("Action Movies");
+
+		//// Process the file
+		Movie movies[5];
+		constexpr auto max_movies = 5;
+		if (argc > 2) {
+			// TODO: load 5 movies from the file "argv[2]".
+			//       - read one line at a time, and pass it to the Movie constructor
+			//       - store each movie read into the array "movies"
+			//       - lines that start with "#" are considered comments and should be ignored
+			auto book_count = 0;
+			std::ifstream ifs{ argv[2] };
+			while (book_count < max_movies) {
+				std::string s;
+				std::getline(ifs, s);
+				if (s.front() == '#') {
+					continue;
+				}
+				if (s.front() != '#') {
+					library += Book{ s };
+					++book_count;
+				}
+			}
+		}
+
+		std::cout << "-----------------------------------------\n";
+		std::cout << "Testing addition and callback function\n";
+		std::cout << "-----------------------------------------\n";
+		if (argc > 2) {
+			// Add a few movies to collection; no observer is set
+			((theCollection += movies[0]) += movies[1]) += movies[2];
+			theCollection += movies[1];
+			// add more movies; now we get a callback from the collection
+			theCollection.setObserver(movieAddedObserver);
+			theCollection += movies[3];
+			theCollection += movies[3];
+			theCollection += movies[4];
+		}
+		else {
+			std::cout << "** No movies in the Collection\n";
+		}
+		std::cout << "-----------------------------------------\n\n";
+
+		std::cout << "-----------------------------------------\n";
+		std::cout << "Testing exceptions and operator[]\n";
+		std::cout << "-----------------------------------------\n";
+
+		//// TODO: The following loop can generate generate an exception
+		//         write code to handle the exception
+		//       If an exception occurs print a message in the following format
+		//** EXCEPTION: ERROR_MESSAGE<endl>
+		//         where ERROR_MESSAGE is extracted from the exception object.
+		for (auto i = 0u; i < 10; ++i) {
+			if (i >= max_movies) {
+				throw std::out_of_range{ "oops, you're attempting to access invalid memory" };
+			}
+			std::cout << theCollection[i];
+		}
+
+		std::cout << "-----------------------------------------\n\n";
+
+		std::cout << "-----------------------------------------\n";
+		std::cout << "Testing the functor\n";
+		std::cout << "-----------------------------------------\n";
+		for (auto i = 3; i < argc; ++i)
+		{
+			//	// TODO: The following statement can generate generate an exception
+			//	//         write code to handle the exception
+			//	//       If an exception occurs print a message in the following format
+			//	//** EXCEPTION: ERROR_MESSAGE<endl>
+			//	//         where ERROR_MESSAGE is extracted from the exception object.
+			SpellChecker sp(argv[i]);
+			for (auto j = 0u; j < library.size(); ++j)
+				library[j].fixSpelling(sp);
+			sp.showStatistics(std::cout);
+
+			for (auto j = 0u; j < theCollection.size(); ++j)
+				theCollection[j].fixSpelling(sp);
+			sp.showStatistics(std::cout);
+		}
+		//if (argc < 3) {
+		//	std::cout << "** Spellchecker is empty\n";
+		//	std::cout << "-----------------------------------------\n";
+		//}
+		//std::cout << "\n";
+
+		//std::cout << "=========================================\n";
+		//std::cout << "Wrapping up this workshop\n";
+		//std::cout << "--------------- Movies ------------------\n";
+		//std::cout << theCollection;
+		//std::cout << "--------------- Books -------------------\n";
+		//std::cout << library;
+		//std::cout << "-----------------------------------------\n";
+		//std::cout << "Testing operator[] (the other overload)\n";
+		//std::cout << "-----------------------------------------\n";
+		//const Movie* aMovie = theCollection["Terminator 2"];
+		//if (aMovie == nullptr)
+		//	std::cout << "** Movie Terminator 2 not in collection.\n";
+		//aMovie = theCollection["Dark Phoenix"];
+		//if (aMovie != nullptr)
+		//	std::cout << "In this collection:\n" << *aMovie;
+		//std::cout << "-----------------------------------------\n\n";
+
+		//return 0;
 	}
 
-	std::cout << "-----------------------------------------\n";
-	std::cout << "Testing addition and callback function\n";
-	std::cout << "-----------------------------------------\n";
-	if (argc > 2) {
-		// Add a few movies to collection; no observer is set
-		((theCollection += movies[0]) += movies[1]) += movies[2];
-		theCollection += movies[1];
-		// add more movies; now we get a callback from the collection
-		theCollection.setObserver(movieAddedObserver);
-		theCollection += movies[3];
-		theCollection += movies[3];
-		theCollection += movies[4];
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		return 1;
 	}
-	else {
-		std::cout << "** No movies in the Collection\n";
-	}
-	std::cout << "-----------------------------------------\n\n";
-
-	std::cout << "-----------------------------------------\n";
-	std::cout << "Testing exceptions and operator[]\n";
-	std::cout << "-----------------------------------------\n";
-
-	//// TODO: The following loop can generate generate an exception
-	//         write code to handle the exception
-	//       If an exception occurs print a message in the following format
-	//** EXCEPTION: ERROR_MESSAGE<endl>
-	//         where ERROR_MESSAGE is extracted from the exception object.
-	for (auto i = 0u; i < 10; ++i)
-		std::cout << theCollection[i];
-
-	std::cout << "-----------------------------------------\n\n";
-
-	std::cout << "-----------------------------------------\n";
-	std::cout << "Testing the functor\n";
-	//std::cout << "-----------------------------------------\n";
-	//for (auto i = 3; i < argc; ++i)
-	//{
-	//	// TODO: The following statement can generate generate an exception
-	//	//         write code to handle the exception
-	//	//       If an exception occurs print a message in the following format
-	//	//** EXCEPTION: ERROR_MESSAGE<endl>
-	//	//         where ERROR_MESSAGE is extracted from the exception object.
-	//	SpellChecker sp(argv[i]);
-	//	for (auto j = 0u; j < library.size(); ++j)
-	//		library[j].fixSpelling(sp);
-	//	sp.showStatistics(std::cout);
-
-	//	for (auto j = 0u; j < theCollection.size(); ++j)
-	//		theCollection[j].fixSpelling(sp);
-	//	sp.showStatistics(std::cout);
-	//}
-	//if (argc < 3) {
-	//	std::cout << "** Spellchecker is empty\n";
-	//	std::cout << "-----------------------------------------\n";
-	//}
-	//std::cout << "\n";
-
-	//std::cout << "=========================================\n";
-	//std::cout << "Wrapping up this workshop\n";
-	//std::cout << "--------------- Movies ------------------\n";
-	//std::cout << theCollection;
-	//std::cout << "--------------- Books -------------------\n";
-	//std::cout << library;
-	//std::cout << "-----------------------------------------\n";
-	//std::cout << "Testing operator[] (the other overload)\n";
-	//std::cout << "-----------------------------------------\n";
-	//const Movie* aMovie = theCollection["Terminator 2"];
-	//if (aMovie == nullptr)
-	//	std::cout << "** Movie Terminator 2 not in collection.\n";
-	//aMovie = theCollection["Dark Phoenix"];
-	//if (aMovie != nullptr)
-	//	std::cout << "In this collection:\n" << *aMovie;
-	//std::cout << "-----------------------------------------\n\n";
-
-	//return 0;
 }
+
+//int main(int argc, char** argv)
+//{
+//	std::cout << "Command Line:\n";
+//	std::cout << "--------------------------\n";
+//	for (int i = 0; i < argc; i++)
+//		std::cout << std::setw(3) << i + 1 << ": " << argv[i] << '\n';
+//	std::cout << "--------------------------\n\n";
+//	// get the books
+//	sdds::Collection<sdds::Book> library("Bestsellers");
+//	if (argc == 5) {
+//		// TODO: load the first 4 books from the file "argv[1]".
+//		//       - read one line at a time, and pass it to the Book constructor
+//		//       - store each book read into the collection "library" (use the += operator)
+//		//       - lines that start with "#" are considered comments and should be ignored
+//		//       - if the file cannot be open, print a message to standard error console and
+//		//                exit from application with error code "AppErrors::CannotOpenFile"
+//
+//	//	/*
+//	//	/*
+//	//	 ♪ Hey, I just met you,      ♪
+//	//	 ♪ And this is crazy,        ♪
+//	//	 ♪ But here's my number.     ♪    (register the observer)
+//	//	 ♪ So, if something happens, ♪    (event)
+//	//	 ♪ Call me, maybe?           ♪    (callback)
+//	//	 */
+//		constexpr auto max_books = 4;
+//		auto book_count = 0;
+//		long long current_pos = 0;
+//		std::ifstream ifs{ argv[1] };
+//		while (book_count < max_books) {
+//			std::string s;
+//			std::getline(ifs, s);
+//			if (s.front() == '#') {
+//				continue;
+//			}
+//			if (s.front() != '#') {
+//				library += Book{ s };
+//				++book_count;
+//			}
+//			if (book_count == max_books) {
+//				current_pos = ifs.tellg();
+//			}
+//		}
+//		library.setObserver(bookAddedObserver);
+//
+//		//	// TODO: add the rest of the books from the file.
+//		ifs.seekg(current_pos);
+//		while (!ifs.eof()) {
+//			std::string internal_s;
+//			std::getline(ifs, internal_s);
+//			library += Book{ internal_s };
+//		}
+//	}
+//	else
+//	{
+//		std::cerr << "ERROR: Incorrect number of arguments.\n";
+//		exit(AppErrors::BadArgumentCount);
+//	}
+//
+//	double usdToCadRate = 1.3;
+//	double gbpToCadRate = 1.5;
+//
+//	//// TODO: (from part #1) create a lambda expression that fixes the price of a book accoding to the rules
+//	////       - the expression should receive a single parameter of type "Book&"
+//	////       - if the book was published in US, multiply the price with "usdToCadRate"
+//	////            and save the new price in the book object
+//	////       - if the book was published in UK between 1990 and 1999 (inclussive),
+//	////            multiply the price with "gbpToCadRate" and save the new price in the book object
+//	const std::string america = "US";
+//	const std::string united_kingdom = "UK";
+//	auto update_price{
+//		[&america,&united_kingdom,usdToCadRate,gbpToCadRate](Book& b) {
+//		if (b.country() == america) {
+//			return (b.price() * usdToCadRate);
+//		}
+//		else if (b.country() == united_kingdom && (b.year() >= 1990 && b.year() <= 1999)) {
+//			return  (b.price() * gbpToCadRate);
+//		}
+//		return b.price();
+//	}
+//	};
+//	std::cout << "-----------------------------------------\n";
+//	std::cout << "The library content\n";
+//	std::cout << "-----------------------------------------\n";
+//	std::cout << library;
+//	std::cout << "-----------------------------------------\n\n";
+//
+//	//// TODO (from part #1): iterate over the library and update the price of each book
+//	////         using the lambda defined above.
+//
+//	std::cout << "-----------------------------------------\n";
+//	std::cout << "The library content (updated prices)\n";
+//	std::cout << "-----------------------------------------\n";
+//	std::cout << library;
+//	std::cout << "-----------------------------------------\n\n";
+//
+//	Collection<Movie> theCollection("Action Movies");
+//
+//	//// Process the file
+//	Movie movies[5];
+//	if (argc > 2) {
+//		// TODO: load 5 movies from the file "argv[2]".
+//		//       - read one line at a time, and pass it to the Movie constructor
+//		//       - store each movie read into the array "movies"
+//		//       - lines that start with "#" are considered comments and should be ignored
+//		constexpr auto max_books = 5;
+//		auto book_count = 0;
+//		long long current_pos = 0;
+//		std::ifstream ifs{ argv[2] };
+//		while (book_count < max_books) {
+//			std::string s;
+//			std::getline(ifs, s);
+//			if (s.front() == '#') {
+//				continue;
+//			}
+//			if (s.front() != '#') {
+//				library += Book{ s };
+//				++book_count;
+//			}
+//			if (book_count == max_books) {
+//				current_pos = ifs.tellg();
+//			}
+//		}
+//	}
+//
+//	std::cout << "-----------------------------------------\n";
+//	std::cout << "Testing addition and callback function\n";
+//	std::cout << "-----------------------------------------\n";
+//	if (argc > 2) {
+//		// Add a few movies to collection; no observer is set
+//		((theCollection += movies[0]) += movies[1]) += movies[2];
+//		theCollection += movies[1];
+//		// add more movies; now we get a callback from the collection
+//		theCollection.setObserver(movieAddedObserver);
+//		theCollection += movies[3];
+//		theCollection += movies[3];
+//		theCollection += movies[4];
+//	}
+//	else {
+//		std::cout << "** No movies in the Collection\n";
+//	}
+//	std::cout << "-----------------------------------------\n\n";
+//
+//	std::cout << "-----------------------------------------\n";
+//	std::cout << "Testing exceptions and operator[]\n";
+//	std::cout << "-----------------------------------------\n";
+//
+//	//// TODO: The following loop can generate generate an exception
+//	//         write code to handle the exception
+//	//       If an exception occurs print a message in the following format
+//	//** EXCEPTION: ERROR_MESSAGE<endl>
+//	//         where ERROR_MESSAGE is extracted from the exception object.
+//	for (auto i = 0u; i < 10; ++i)
+//		std::cout << theCollection[i];
+//
+//	std::cout << "-----------------------------------------\n\n";
+//
+//	std::cout << "-----------------------------------------\n";
+//	std::cout << "Testing the functor\n";
+//	std::cout << "-----------------------------------------\n";
+//	for (auto i = 3; i < argc; ++i)
+//	{
+//		//	// TODO: The following statement can generate generate an exception
+//		//	//         write code to handle the exception
+//		//	//       If an exception occurs print a message in the following format
+//		//	//** EXCEPTION: ERROR_MESSAGE<endl>
+//		//	//         where ERROR_MESSAGE is extracted from the exception object.
+//		SpellChecker sp(argv[i]);
+//		for (auto j = 0u; j < library.size(); ++j)
+//			library[j].fixSpelling(sp);
+//		sp.showStatistics(std::cout);
+//
+//		for (auto j = 0u; j < theCollection.size(); ++j)
+//			theCollection[j].fixSpelling(sp);
+//		sp.showStatistics(std::cout);
+//	}
+//	//if (argc < 3) {
+//	//	std::cout << "** Spellchecker is empty\n";
+//	//	std::cout << "-----------------------------------------\n";
+//	//}
+//	//std::cout << "\n";
+//
+//	//std::cout << "=========================================\n";
+//	//std::cout << "Wrapping up this workshop\n";
+//	//std::cout << "--------------- Movies ------------------\n";
+//	//std::cout << theCollection;
+//	//std::cout << "--------------- Books -------------------\n";
+//	//std::cout << library;
+//	//std::cout << "-----------------------------------------\n";
+//	//std::cout << "Testing operator[] (the other overload)\n";
+//	//std::cout << "-----------------------------------------\n";
+//	//const Movie* aMovie = theCollection["Terminator 2"];
+//	//if (aMovie == nullptr)
+//	//	std::cout << "** Movie Terminator 2 not in collection.\n";
+//	//aMovie = theCollection["Dark Phoenix"];
+//	//if (aMovie != nullptr)
+//	//	std::cout << "In this collection:\n" << *aMovie;
+//	//std::cout << "-----------------------------------------\n\n";
+//
+//	//return 0;
+//}

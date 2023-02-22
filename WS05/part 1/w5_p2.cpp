@@ -205,13 +205,13 @@ int main(int argc, char** argv)
 		std::cout << "-----------------------------------------\n";
 		std::cout << "Testing the functor\n";
 		std::cout << "-----------------------------------------\n";
-		try {
-			for (auto i = 3; i < argc; ++i) {
-				//	// TODO: The following statement can generate generate an exception
-				//	//         write code to handle the exception
-				//	//       If an exception occurs print a message in the following format
-				//	//** EXCEPTION: ERROR_MESSAGE<endl>
-				//	//         where ERROR_MESSAGE is extracted from the exception object.
+		for (auto i = 3; i < argc; ++i) {
+			//	// TODO: The following statement can generate generate an exception
+			//	//         write code to handle the exception
+			//	//       If an exception occurs print a message in the following format
+			//	//** EXCEPTION: ERROR_MESSAGE<endl>
+			//	//         where ERROR_MESSAGE is extracted from the exception object.
+			try {
 				SpellChecker sp(argv[i]);
 				for (auto j = 0u; j < library.size(); ++j) {
 					library[j].fixSpelling(sp);
@@ -223,9 +223,9 @@ int main(int argc, char** argv)
 				}
 				sp.showStatistics(std::cout);*/
 			}
-		}
-		catch (const char*) {
-			std::cerr << "Bad file name!\n";
+			catch (sdds::SpellChecker::Bad_File_Name& e) {
+				std::cerr << e.what() << std::endl;
+			}
 		}
 		if (argc < 3) {
 			std::cout << "** Spellchecker is empty\n";

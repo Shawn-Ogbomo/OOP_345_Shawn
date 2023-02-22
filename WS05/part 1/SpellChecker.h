@@ -12,6 +12,13 @@
 namespace sdds {
 	class SpellChecker {
 	public:
+		class Bad_File_Name {
+		public:
+			explicit Bad_File_Name(const std::string& err);
+			std::string what() const;
+		private:
+			std::string error_msg{};
+		};
 		explicit SpellChecker(const char* filename);
 		void operator()(std::string& text);
 	private:

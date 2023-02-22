@@ -66,7 +66,7 @@ namespace sdds {
 		}
 		T& operator[](size_t idx) const {
 			if (capacity <= idx) {
-				throw std::out_of_range{ "oops index " + std::to_string(idx) + "is out of range" };
+				throw std::out_of_range{ "** EXCEPTION: Bad index [" + std::to_string(idx) + "] Collection has[" + std::to_string(idx) + "]items." };
 			}
 			return items[idx];
 		}
@@ -85,4 +85,5 @@ namespace sdds {
 		void(*fcnptr)(const Collection<T>&, const T&) {};
 	};
 }
+
 #endif//!SDDS_COLLECTION_H

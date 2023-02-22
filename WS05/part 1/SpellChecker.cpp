@@ -11,7 +11,7 @@ namespace sdds {
 	SpellChecker::SpellChecker(const char* filename) {
 		std::ifstream ifs{ filename };
 		if (!ifs) {
-			throw std::string{ "Bad file name!" };
+			throw Bad_File_Name{ "Bad file name!" };
 		}
 		for (auto i = 0; ifs >> m_badWords[i] >> m_goodWords[i]; ++i) {
 			if (ifs.eof()) {
@@ -20,6 +20,18 @@ namespace sdds {
 		}
 	}
 	void SpellChecker::operator()(std::string& text) {
-		//count how many times a bad word has been replaced...
+		auto pos = 0;
+		for (const auto& word : m_badWords) {
+			auto found_index = text.find(word);
+			if (found_index != std::string::npos) {
+				text.replace(found_index, word.size(), m_goodWords[pos]);
+			}
+			++pos;
+		}
+	}
+	SpellChecker::Bad_File_Name::Bad_File_Name(const std::string& err) :error_msg{ err } {
+	}
+	std::string SpellChecker::Bad_File_Name::what() const {
+		return error_msg;
 	}
 }

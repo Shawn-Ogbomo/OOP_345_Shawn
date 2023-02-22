@@ -25,6 +25,7 @@ namespace sdds {
 		friend std::ostream& operator <<(std::ostream& os, const Book& b);
 		template <typename T>
 		void fixSpelling(T& spellChecker) {
+			spellChecker(description);
 		}
 	private:
 		std::string name;

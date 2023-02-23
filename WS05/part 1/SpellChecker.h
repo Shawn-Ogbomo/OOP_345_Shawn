@@ -9,6 +9,7 @@
 #define SDDS_SPELLCHECKER_H_
 #include <string>
 #include <array>
+#include <vector>
 namespace sdds {
 	class SpellChecker {
 	public:
@@ -21,9 +22,12 @@ namespace sdds {
 		};
 		explicit SpellChecker(const char* filename);
 		void operator()(std::string& text);
+		void showStatistics(std::ostream& out) const;
+		void update_word_count(const std::string& w);
 	private:
 		std::array<std::string, 6> m_badWords;
 		std::array<std::string, 6> m_goodWords;
+		std::vector<std::string> replaced_words;
 	};
 }
 #endif//!SDDS_SPELLCHECKER_H

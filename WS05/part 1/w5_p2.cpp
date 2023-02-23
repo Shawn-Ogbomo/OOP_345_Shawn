@@ -216,12 +216,12 @@ int main(int argc, char** argv)
 				for (auto j = 0u; j < library.size(); ++j) {
 					library[j].fixSpelling(sp);
 				}
-				/*sp.showStatistics(std::cout);
+				sp.showStatistics(std::cout);
 
 				for (auto j = 0u; j < theCollection.size(); ++j) {
 					theCollection[j].fixSpelling(sp);
 				}
-				sp.showStatistics(std::cout);*/
+				sp.showStatistics(std::cout);
 			}
 			catch (sdds::SpellChecker::Bad_File_Name& e) {
 				std::cerr << e.what() << std::endl;
@@ -233,23 +233,23 @@ int main(int argc, char** argv)
 		}
 		std::cout << "\n";
 
-		//std::cout << "=========================================\n";
-		//std::cout << "Wrapping up this workshop\n";
-		//std::cout << "--------------- Movies ------------------\n";
-		//std::cout << theCollection;
-		//std::cout << "--------------- Books -------------------\n";
-		//std::cout << library;
-		//std::cout << "-----------------------------------------\n";
-		//std::cout << "Testing operator[] (the other overload)\n";
-		//std::cout << "-----------------------------------------\n";
-		//const Movie* aMovie = theCollection["Terminator 2"];
-		//if (aMovie == nullptr)
-		//	std::cout << "** Movie Terminator 2 not in collection.\n";
-		//aMovie = theCollection["Dark Phoenix"];
-		//if (aMovie != nullptr)
-		//	std::cout << "In this collection:\n" << *aMovie;
-		//std::cout << "-----------------------------------------\n\n";
+		/*	std::cout << "=========================================\n";
+			std::cout << "Wrapping up this workshop\n";
+			std::cout << "--------------- Movies ------------------\n";
+			std::cout << theCollection;
+			std::cout << "--------------- Books -------------------\n";
+			std::cout << library;
+			std::cout << "-----------------------------------------\n";
+			std::cout << "Testing operator[] (the other overload)\n";
+			std::cout << "-----------------------------------------\n";
+			const Movie* aMovie = theCollection["Terminator 2"];
+			if (aMovie == nullptr)
+				std::cout << "** Movie Terminator 2 not in collection.\n";
+			aMovie = theCollection["Dark Phoenix"];
+			if (aMovie != nullptr)
+				std::cout << "In this collection:\n" << *aMovie;
+			std::cout << "-----------------------------------------\n\n";*/
 
-		//return 0;
+			//return 0;
 	}
 }

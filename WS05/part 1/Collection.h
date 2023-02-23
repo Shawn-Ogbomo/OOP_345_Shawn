@@ -73,7 +73,7 @@ namespace sdds {
 		T* operator[](const std::string& title) const {
 			for (unsigned i = 0; i < capacity; ++i) {
 				if (items[i].title() == title) {
-					return items[i];
+					return &items[i];
 				}
 			}
 			return nullptr;

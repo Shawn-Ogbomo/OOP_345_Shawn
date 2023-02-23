@@ -243,13 +243,13 @@ int main(int argc, char** argv)
 		std::cout << "Testing operator[] (the other overload)\n";
 		std::cout << "-----------------------------------------\n";
 		const Movie* aMovie = theCollection["Terminator 2"];
-		/*	if (aMovie == nullptr)
-				std::cout << "** Movie Terminator 2 not in collection.\n";
-			aMovie = theCollection["Dark Phoenix"];*/
-			/*if (aMovie != nullptr)
-				std::cout << "In this collection:\n" << *aMovie;
-			std::cout << "-----------------------------------------\n\n";*/
+		if (aMovie == nullptr)
+			std::cout << "** Movie Terminator 2 not in collection.\n";
+		aMovie = theCollection["Dark Phoenix"];
+		if (aMovie != nullptr)
+			std::cout << "In this collection:\n" << *aMovie;
+		std::cout << "-----------------------------------------\n\n";
 
-			//return 0;
+		//return 0;
 	}
 }

@@ -17,6 +17,10 @@ namespace sdds {
 		const std::string& title() const;
 		int year() const;
 		const std::string& description() const;
+		template <typename T>
+		void fixSpelling(T& spellChecker) {
+			spellChecker(details);
+		}
 	private:
 		std::string name;
 		int yr{};

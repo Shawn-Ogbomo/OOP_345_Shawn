@@ -8,8 +8,8 @@
 #ifndef SDDS_Util_H_
 #define SDDS_Util_H_
 #include <string>
-#include <array>
+#include <vector>
 namespace Util {
-	int count(const std::array<std::string, 6>& words, const std::string& word);
+	int count(const std::vector<std::string>& words, const std::string& word);
 }
 #endif//!SDDS_Util_H

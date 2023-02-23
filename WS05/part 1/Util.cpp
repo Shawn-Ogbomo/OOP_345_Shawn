@@ -7,7 +7,7 @@
 //-----------------------------------------------------------
 #include "Util.h"
 
-int Util::count(const std::array<std::string, 6>& words, const std::string& word) {
+int Util::count(const std::vector<std::string>& words, const std::string& word) {
 	auto num_words = 0;
 	if (!words.empty()) {
 		for (const auto& internal_word : words) {

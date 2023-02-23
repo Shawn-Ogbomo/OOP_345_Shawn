@@ -25,10 +25,10 @@ namespace sdds {
 	void SpellChecker::operator()(std::string& text) {
 		auto pos = 0;
 		for (const auto& word : m_badWords) {
-			auto found_index = text.find(word);
-			if (found_index != std::string::npos) {
+			for (auto found_index = text.find(word); found_index != std::string::npos;) {
 				text.replace(found_index, word.size(), m_goodWords[pos]);
 				update_word_count(word);
+				found_index = text.find(word);
 			}
 			++pos;
 		}

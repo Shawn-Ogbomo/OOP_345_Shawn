@@ -71,7 +71,7 @@ namespace sdds {
 			return items[idx];
 		}
 		T* operator[](const std::string& title) const {
-			for (auto i = 0; i < capacity; ++i) {
+			for (unsigned i = 0; i < capacity; ++i) {
 				if (items[i].title() == title) {
 					return items[i];
 				}
@@ -85,5 +85,4 @@ namespace sdds {
 		void(*fcnptr)(const Collection<T>&, const T&) {};
 	};
 }
-
 #endif//!SDDS_COLLECTION_H

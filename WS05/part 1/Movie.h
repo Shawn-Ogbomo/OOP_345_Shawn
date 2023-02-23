@@ -19,6 +19,7 @@ namespace sdds {
 		const std::string& description() const;
 		template <typename T>
 		void fixSpelling(T& spellChecker) {
+			spellChecker(name);
 			spellChecker(details);
 		}
 	private:

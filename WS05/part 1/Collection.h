@@ -40,19 +40,14 @@ namespace sdds {
 					return *this;
 				}
 
-			auto* temp = new T[capacity];
+			auto* temp = new T[capacity +1];
 			for (unsigned i = 0; i < capacity; ++i) {
 				temp[i] = items[i];
 			}
 			delete[] items;
-
-			items = new T[capacity + 1];
-			for (unsigned i = 0; i < capacity; ++i) {
-				items[i] = temp[i];
-			}
-			delete[] temp;
+			temp[capacity] = item;
+			items = temp;
 			++capacity;
-			items[capacity - 1] = item;
 			if (fcnptr) {
 				fcnptr(*this, item);
 			}

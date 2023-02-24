@@ -250,6 +250,6 @@ int main(int argc, char** argv)
 			std::cout << "In this collection:\n" << *aMovie;
 		std::cout << "-----------------------------------------\n\n";
 
-		//return 0;
+		return 0;
 	}
 }

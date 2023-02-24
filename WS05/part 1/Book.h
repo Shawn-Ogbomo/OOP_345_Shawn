@@ -31,7 +31,7 @@ namespace sdds {
 		std::string name;
 		std::string nation;
 		std::string author;
-		unsigned yr{};
+		size_t yr{};
 		double cost{};
 		std::string description;
 	};

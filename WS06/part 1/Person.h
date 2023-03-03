@@ -1,3 +1,10 @@
+//Filename: Person.h
+//Name:	Shawn Ogbomo
+// Student #022609127
+// date: 03/03/2023
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assignments
+//-----------------------------------------------------------
 #ifndef SDDS_PERSON_H
 #define SDDS_PERSON_H
 #include <iostream>
@@ -13,9 +20,17 @@ namespace sdds
 		virtual std::string age() const = 0;
 		virtual std::string id() const = 0;
 		virtual void display(std::ostream&) const = 0;
-		
+
 		virtual ~Person() = default;
+	};
+	class Employee : public Person {
+	public:
+		explicit Employee(std::istream& is);
+	private:
+		std::string	m_name;
+		unsigned m_age{};
+		std::string m_id;
 	};
 }
 
-#endif
+#endif//!SDDS_PERSON_H

@@ -15,14 +15,19 @@ void loadData(const char* filename, sdds::College& theCollege)
 		return;
 	}
 	sdds::Person* thePerson = nullptr;
-	while (file)
-	{
-		// TODO: This code can throw errors to signal that something
+	while (file) {
+		try {
+			// TODO: This code can throw errors to signal that something
 		//         went wrong while extracting data. Write code to catch
 		//         and handle the exceptions.
-		thePerson = sdds::buildInstance(file);
-		/*if (thePerson)
-			theCollege += thePerson;*/
+			thePerson = sdds::buildInstance(file);
+			/*if (thePerson)
+				theCollege += thePerson;*/
+		}
+		catch (std::string& e) {
+			std::cerr << e;
+			file.clear();
+		}
 	}
 }
 

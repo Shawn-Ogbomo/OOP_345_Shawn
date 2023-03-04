@@ -9,8 +9,10 @@
 namespace sdds {
 	College::College() = default;
 
-	//College& College::operator+=(Person* thePerson) {
-	////}
-	//void College::display(std::ostream& out) const {
-	//}
+	College& College::operator+=(Person* thePerson) {
+		m_persons.push_back(thePerson);
+		return *this;
+	}
+	void College::display(std::ostream& out) const {
+	}
 }

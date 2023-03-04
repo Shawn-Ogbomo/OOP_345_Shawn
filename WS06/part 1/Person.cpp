@@ -57,4 +57,6 @@ namespace sdds {
 		std::cout << std::left << "|" << std::setw(10) << status() << " |"
 			<< id() << "|" << std::setw(20) << name() << "|" << std::setw(3) << age();
 	}
+	Employee::~Employee() {
+	}
 }

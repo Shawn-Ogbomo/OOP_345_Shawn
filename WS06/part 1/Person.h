@@ -32,6 +32,7 @@ namespace sdds
 		std::string age() const override;
 		std::string id() const override;
 		void display(std::ostream&) const override;
+		virtual ~Employee();
 	private:
 		std::string	m_name;
 		unsigned m_age{};

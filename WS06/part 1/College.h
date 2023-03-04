@@ -13,10 +13,10 @@ namespace sdds {
 	class College {
 	public:
 		College();
-		//College& operator +=(Person* thePerson);
+		College& operator +=(Person* thePerson);
 		College(const College& c) = delete;
 		College& operator =(const College& c) = delete;
-		//void display(std::ostream& out) const;
+		void display(std::ostream& out) const;
 	private:
 		std::vector<Person*> m_persons;
 	};

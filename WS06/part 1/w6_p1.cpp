@@ -21,8 +21,8 @@ void loadData(const char* filename, sdds::College& theCollege)
 		//         went wrong while extracting data. Write code to catch
 		//         and handle the exceptions.
 			thePerson = sdds::buildInstance(file);
-			/*if (thePerson)
-				theCollege += thePerson;*/
+			if (thePerson)
+				theCollege += thePerson;
 		}
 		catch (std::string& e) {
 			std::cerr << e;

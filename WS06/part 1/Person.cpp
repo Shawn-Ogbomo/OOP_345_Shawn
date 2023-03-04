@@ -25,7 +25,7 @@ namespace sdds {
 
 		is >> m_age;
 
-		if (!is) {
+		if (is.fail()) {
 			throw std::string{ m_name + "++Invalid record!" };
 		}
 		if (is.peek() == ',') {
@@ -53,14 +53,9 @@ namespace sdds {
 	std::string Employee::id() const {
 		return m_id;
 	}
-	void Employee::display(std::ostream&) const {
-		std::cout << std::left << "|" << std::setw(10) << status() << " |"
-			<< id() << "|" << std::setw(20) << name() << "|" << std::setw(3) << age();
+	void Employee::display(std::ostream& out) const {
+		out << std::left << "| " << std::setw(10) << status() << "| " << std::setw(10)
+			<< id() << "| " << std::setw(20) << name() << " | " << std::setw(3) << age() << " |";
 	}
 	Employee::~Employee() = default;
-	std::ostream& operator<<(std::ostream& os, const Person& p)
-	{
-		return os << std::left << "|" << std::setw(10) << p.status() << " |"
-			<< p.id() << "|" << std::setw(20) << p.name() << "|" << std::setw(3) << p.age();
-	}
 }

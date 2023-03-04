@@ -12,13 +12,11 @@
 namespace sdds {
 	Person* buildInstance(std::istream& in) {
 		const char employee = 'e';
-		std::string s;
 
 		if (in.peek() != employee) {
-			std::getline(in, s);
 			return nullptr;
 		}
-
+		std::string s;
 		std::stringstream s1;
 		getline(in, s);
 		s1 << s;

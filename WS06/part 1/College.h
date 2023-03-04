@@ -15,7 +15,7 @@ namespace sdds {
 		College();
 		College& operator +=(Person* thePerson);
 		College(const College& c) = delete;
-		College& operator =(const College& c) = delete;
+		College& operator =(const College& right) = delete;
 		void display(std::ostream& out) const;
 		~College();
 	private:

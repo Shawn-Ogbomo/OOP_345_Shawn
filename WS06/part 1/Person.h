@@ -21,7 +21,7 @@ namespace sdds
 		virtual void display(std::ostream&) const = 0;
 		virtual ~Person() = default;
 	};
-	std::ostream& operator <<(std::ostream& os, const Person& p);
+
 	class Employee : public Person {
 	public:
 		explicit Employee(std::istream& is);
@@ -29,7 +29,7 @@ namespace sdds
 		std::string name() const override;
 		std::string age() const override;
 		std::string id() const override;
-		void display(std::ostream&) const override;
+		void display(std::ostream& out) const override;
 		~Employee() override;
 	private:
 		std::string	m_name;

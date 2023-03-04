@@ -27,6 +27,7 @@ void loadData(const char* filename, sdds::College& theCollege)
 		catch (std::string& e) {
 			std::cerr << e << std::endl;
 			file.clear();
+			file.ignore(1000, '\n');
 		}
 	}
 }

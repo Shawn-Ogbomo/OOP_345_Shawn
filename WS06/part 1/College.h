@@ -17,6 +17,7 @@ namespace sdds {
 		College(const College& c) = delete;
 		College& operator =(const College& c) = delete;
 		void display(std::ostream& out) const;
+		~College();
 	private:
 		std::vector<Person*> m_persons;
 	};

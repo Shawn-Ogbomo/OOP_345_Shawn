@@ -25,7 +25,7 @@ void loadData(const char* filename, sdds::College& theCollege)
 				theCollege += thePerson;
 		}
 		catch (std::string& e) {
-			std::cerr << e;
+			std::cerr << e << std::endl;
 			file.clear();
 		}
 	}
@@ -41,7 +41,7 @@ int main(int argc, char** argv)
 
 	sdds::College theCollege;
 	loadData(argv[1], theCollege);
-	//theCollege.display(std::cout);
+	theCollege.display(std::cout);
 
 	return 0;
 }

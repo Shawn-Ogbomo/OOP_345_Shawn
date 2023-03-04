@@ -14,5 +14,13 @@ namespace sdds {
 		return *this;
 	}
 	void College::display(std::ostream& out) const {
+		for (auto it = m_persons.begin(); it != m_persons.end(); ++it) {
+			std::cout << *(*it) << "\n";
+		}
+	}
+	College::~College() {
+		for (const auto& v : m_persons) {
+			delete v;
+		}
 	}
 }

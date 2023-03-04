@@ -9,7 +9,6 @@
 #define SDDS_PERSON_H
 #include <iostream>
 #include <string>
-
 namespace sdds
 {
 	class Person
@@ -20,10 +19,9 @@ namespace sdds
 		virtual std::string age() const = 0;
 		virtual std::string id() const = 0;
 		virtual void display(std::ostream&) const = 0;
-
 		virtual ~Person() = default;
 	};
-
+	std::ostream& operator <<(std::ostream& os, const Person& p);
 	class Employee : public Person {
 	public:
 		explicit Employee(std::istream& is);
@@ -32,7 +30,7 @@ namespace sdds
 		std::string age() const override;
 		std::string id() const override;
 		void display(std::ostream&) const override;
-		virtual ~Employee();
+		~Employee() override;
 	private:
 		std::string	m_name;
 		unsigned m_age{};

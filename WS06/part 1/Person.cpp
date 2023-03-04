@@ -57,6 +57,10 @@ namespace sdds {
 		std::cout << std::left << "|" << std::setw(10) << status() << " |"
 			<< id() << "|" << std::setw(20) << name() << "|" << std::setw(3) << age();
 	}
-	Employee::~Employee() {
+	Employee::~Employee() = default;
+	std::ostream& operator<<(std::ostream& os, const Person& p)
+	{
+		return os << std::left << "|" << std::setw(10) << p.status() << " |"
+			<< p.id() << "|" << std::setw(20) << p.name() << "|" << std::setw(3) << p.age();
 	}
 }

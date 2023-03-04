@@ -5,7 +5,7 @@
 #include "Utilities.h"
 #include "College.h"
 #include "College.h"
-
+#include "Person.h"
 void loadData(const char* filename, sdds::College& theCollege)
 {
 	std::ifstream file(filename);
@@ -21,8 +21,8 @@ void loadData(const char* filename, sdds::College& theCollege)
 		//         went wrong while extracting data. Write code to catch
 		//         and handle the exceptions.
 		thePerson = sdds::buildInstance(file);
-		if (thePerson)
-			theCollege += thePerson;
+		/*if (thePerson)
+			theCollege += thePerson;*/
 	}
 }
 
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
 	sdds::College theCollege;
 	loadData(argv[1], theCollege);
-	theCollege.display(std::cout);
+	//theCollege.display(std::cout);
 
 	return 0;
 }

@@ -23,9 +23,15 @@ namespace sdds
 
 		virtual ~Person() = default;
 	};
+
 	class Employee : public Person {
 	public:
 		explicit Employee(std::istream& is);
+		std::string status() const override;
+		std::string name() const override;
+		std::string age() const override;
+		std::string id() const override;
+		void display(std::ostream&) const override;
 	private:
 		std::string	m_name;
 		unsigned m_age{};

@@ -121,11 +121,16 @@ namespace sdds {
 		char c = in.peek();
 		if (isspace(c) || isdigit(c)) {
 			in >> m_count;
-
+			in.get();
 			for (unsigned i = 0; i < m_count; ++i) {
 				std::string course;
-				std::getline(in, s, ',');
-				in.get();
+				std::getline(in, course, ',');
+				if (in.peek() == ',') {
+					in.get();
+				}
+				if (isspace(in.peek())) {
+					in.get();
+				}
 				m_courses.push_back(new std::string{ course });
 			}
 		}

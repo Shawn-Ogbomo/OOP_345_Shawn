@@ -12,14 +12,24 @@
 namespace sdds {
 	Person* buildInstance(std::istream& in) {
 		const char employee = 'e';
-
-		if (in.peek() != employee) {
+		const char student = 's';
+		const char professor = 'p';
+		char tag = in.peek();
+		if (tag != employee && tag != student && tag != professor) {
 			return nullptr;
 		}
 		std::string s;
 		std::stringstream s1;
 		getline(in, s);
 		s1 << s;
+		/*	if (tag == student) {
+				Person* p = new Student{ s1 };
+				return p;
+			}*/
+		if (tag == professor) {
+			Person* p = new Professor{ s1 };
+			return p;
+		}
 		Person* p = new Employee{ s1 };
 		return p;
 	}

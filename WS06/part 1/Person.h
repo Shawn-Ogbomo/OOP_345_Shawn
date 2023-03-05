@@ -25,17 +25,39 @@ namespace sdds
 	class Employee : public Person {
 	public:
 		explicit Employee(std::istream& is);
+		virtual ~Employee();
 		std::string status() const override;
 		std::string name() const override;
 		std::string age() const override;
 		std::string id() const override;
 		void display(std::ostream& out) const override;
-		~Employee() override;
 	private:
 		std::string	m_name;
 		unsigned m_age{};
 		std::string m_id;
 	};
-}
 
+	class Professor : public Employee {
+	public:
+		explicit Professor(std::istream& in);
+		virtual ~Professor();
+		void display(std::ostream& out) const override;
+		std::string status() const override;
+		std::string department() const;
+
+	private:
+		using Employee::status;
+		using Employee::name;
+		using Employee::age;
+		using Employee::id;
+		using Employee::display;
+		std::string m_department;
+	};
+
+	class  Student : public Person {
+	public:
+		explicit Student(std::istream& in);
+	private:
+	};
+}
 #endif//!SDDS_PERSON_H

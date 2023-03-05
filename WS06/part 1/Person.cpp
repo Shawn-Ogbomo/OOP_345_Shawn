@@ -36,7 +36,7 @@ namespace sdds {
 			is.get();
 		}
 
-		std::getline(is, m_id, space);
+		std::getline(is, m_id, ',');
 		if (m_id.front() != employee_id) {
 			throw std::string{ m_name + "++Invalid record!" };
 		}
@@ -58,4 +58,26 @@ namespace sdds {
 			<< id() << "| " << std::setw(20) << name() << " | " << std::setw(3) << age() << " |";
 	}
 	Employee::~Employee() = default;
+
+	Professor::Professor(std::istream& in)
+		:Employee(in) {
+		if (isspace(in.peek())) {
+			in.get();
+		}
+		std::getline(in, m_department);
+	}
+
+	void Professor::display(std::ostream& out) const {
+		Employee::display(out);
+		out << "department|" << department();
+	}
+
+	std::string Professor::status() const {
+		return "Professor";
+	}
+	std::string Professor::department() const
+	{
+		return m_department;
+	}
+	Professor::~Professor() = default;
 }

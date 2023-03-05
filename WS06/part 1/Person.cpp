@@ -100,9 +100,8 @@ namespace sdds {
 		if (in.fail()) {
 			throw std::string{ m_name + "++Invalid record!" };
 		}
-		if (in.peek() == ',') {
-			in.get();
-		}
+
+		in.get();
 
 		if (isspace(in.peek())) {
 			in.get();
@@ -113,26 +112,22 @@ namespace sdds {
 		if (m_id.front() != student_id) {
 			throw std::string{ m_name + "++Invalid record!" };
 		}
+
+		in >> m_count;
 		in.get();
 		if (isspace(in.peek())) {
 			in.get();
 		}
-
-		char c = in.peek();
-		if (isspace(c) || isdigit(c)) {
-			in >> m_count;
-			in.get();
-			for (unsigned i = 0; i < m_count; ++i) {
-				std::string course;
-				std::getline(in, course, ',');
-				if (in.peek() == ',') {
-					in.get();
-				}
-				if (isspace(in.peek())) {
-					in.get();
-				}
-				m_courses.push_back(new std::string{ course });
+		for (unsigned i = 0; i < m_count; ++i) {
+			std::string course;
+			std::getline(in, course, ',');
+			if (in.peek() == ',') {
+				in.get();
 			}
+			if (isspace(in.peek())) {
+				in.get();
+			}
+			m_courses.push_back(new std::string{ course });
 		}
 	}
 

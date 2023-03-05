@@ -130,7 +130,6 @@ namespace sdds {
 			m_courses.push_back(new std::string{ course });
 		}
 	}
-
 	Student::~Student() {
 		for (const auto& course : m_courses) {
 			delete course;
@@ -153,10 +152,10 @@ namespace sdds {
 		out << std::left << "| " << std::setw(10) << status() << "| " << std::setw(10) << id() << "| " << std::setw(20) << name() << " | " << std::setw(3) << age() << " |";
 		for (auto& course : m_courses) {
 			if (course != m_courses.back()) {
-				out << course << ", ";
+				out << *course << ", ";
 				continue;
 			}
-			out << course;
+			out << *course;
 		}
 	}
 }

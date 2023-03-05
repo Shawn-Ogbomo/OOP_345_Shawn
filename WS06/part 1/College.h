@@ -19,12 +19,19 @@ namespace sdds {
 		College(const College& c) = delete;
 		College& operator =(const College& right) = delete;
 		void display(std::ostream& out) const;
-		//template<typename T>
-		/*	void select(const T& test, std::list<const Person*>& persons) {
-			}*/
+		template<typename T>
+		void select(const T& test, std::list<const Person*>& persons) {
+			fncptr = test;
+			for (const auto& person : m_persons) {
+				if (fncptr(person)) {
+					persons.push_back(person);
+				}
+			}
+		}
 	private:
 		std::vector<Person*> m_persons;
+		bool (*fncptr)(const Person* p) {};
 	};
 }
 
-#endif//!SDDS_COLLEGE_H
+#endif//!SDDS_COLLEGE_Hs

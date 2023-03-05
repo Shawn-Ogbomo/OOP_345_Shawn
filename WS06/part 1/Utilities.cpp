@@ -22,10 +22,10 @@ namespace sdds {
 		std::stringstream s1;
 		getline(in, s);
 		s1 << s;
-		/*	if (tag == student) {
-				Person* p = new Student{ s1 };
-				return p;
-			}*/
+		if (tag == student) {
+			Person* p = new Student{ s1 };
+			return p;
+		}
 		if (tag == professor) {
 			Person* p = new Professor{ s1 };
 			return p;

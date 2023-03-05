@@ -80,4 +80,76 @@ namespace sdds {
 		return m_department;
 	}
 	Professor::~Professor() = default;
+
+	Student::Student(std::istream& in) {
+		const char student_id = 'S';
+		const char space = ' ';
+		std::string s;
+		std::getline(in, s, space);
+		std::getline(in, m_name, ',');
+		auto pos = m_name.find(space);
+		if (pos != std::string::npos) {
+			auto pos2 = m_name.find(space, pos + 1);
+			if (pos2 != std::string::npos) {
+				m_name.erase(m_name.begin() + pos2, m_name.end());
+			}
+		}
+
+		in >> m_age;
+
+		if (in.fail()) {
+			throw std::string{ m_name + "++Invalid record!" };
+		}
+		if (in.peek() == ',') {
+			in.get();
+		}
+
+		if (isspace(in.peek())) {
+			in.get();
+		}
+
+		std::getline(in, m_id, ',');
+
+		if (m_id.front() != student_id) {
+			throw std::string{ m_name + "++Invalid record!" };
+		}
+		in.get();
+		if (isspace(in.peek())) {
+			in.get();
+		}
+
+		char c = in.peek();
+		if (isspace(c) || isdigit(c)) {
+			in >> m_count;
+
+			for (unsigned i = 0; i < m_count; ++i) {
+				std::string course;
+				std::getline(in, s, ',');
+				in.get();
+				m_courses.push_back(new std::string{ course });
+			}
+		}
+	}
+
+	Student::~Student() {
+		for (const auto& course : m_courses) {
+			delete course;
+		}
+	}
+
+	std::string Student::status() const {
+		return "Student";
+	}
+	std::string Student::name() const {
+		return m_name;
+	}
+	std::string Student::age() const {
+		return std::to_string(m_age);
+	}
+	std::string Student::id() const {
+		return m_id;
+	}
+	void Student::display(std::ostream& out) const {
+		//do this later...
+	}
 }

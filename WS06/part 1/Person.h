@@ -8,6 +8,7 @@
 #ifndef SDDS_PERSON_H
 #define SDDS_PERSON_H
 #include <iostream>
+#include <vector>
 #include <string>
 namespace sdds
 {
@@ -57,7 +58,18 @@ namespace sdds
 	class  Student : public Person {
 	public:
 		explicit Student(std::istream& in);
+		virtual ~Student();
+		std::string status() const override;
+		std::string name() const override;
+		std::string age() const override;
+		std::string id() const override;
+		void display(std::ostream& out) const override;
 	private:
+		std::string m_name;
+		unsigned m_age{};
+		std::string m_id;
+		std::vector<std::string*>m_courses;
+		unsigned m_count{};
 	};
 }
 #endif//!SDDS_PERSON_H

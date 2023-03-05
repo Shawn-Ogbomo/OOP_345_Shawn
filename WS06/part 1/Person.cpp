@@ -54,7 +54,7 @@ namespace sdds {
 		return m_id;
 	}
 	void Employee::display(std::ostream& out) const {
-		out << std::left << "| " << std::setw(10) << status() << "| " << std::setw(10)
+		out << std::left << "| " << std::setw(10) << Employee::status() << "| " << std::setw(10)
 			<< id() << "| " << std::setw(20) << name() << " | " << std::setw(3) << age() << " |";
 	}
 	Employee::~Employee() = default;
@@ -69,7 +69,7 @@ namespace sdds {
 
 	void Professor::display(std::ostream& out) const {
 		Employee::display(out);
-		out << "department|" << department();
+		out << department() << "| " << status();
 	}
 
 	std::string Professor::status() const {

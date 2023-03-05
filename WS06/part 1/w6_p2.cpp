@@ -50,11 +50,10 @@ int main(int argc, char** argv)
 		//	//         and returns true if the person is student.
 		auto students = [](const sdds::Person* p) {return p->status() == "Student"; };
 		theCollege.select(students, persons);
-
+		std::cout << "------------------------------------------------------------------------------------------------------------------------\n";
 		std::cout << "|                                        Test #3 Students in the college!                                              |\n";
 		std::cout << "------------------------------------------------------------------------------------------------------------------------\n";
-		for (auto it = persons.begin(); it != persons.end(); ++it)
-		{
+		for (auto it = persons.begin(); it != persons.end(); ++it) {
 			(*it)->display(std::cout);
 			std::cout << std::endl;
 		}
@@ -70,8 +69,7 @@ int main(int argc, char** argv)
 
 	std::cout << "|                                        Test #4 Professors in the college!                                            |\n";
 	std::cout << "------------------------------------------------------------------------------------------------------------------------\n";
-	for (const auto person : persons)
-	{
+	for (const auto person : persons) {
 		person->display(std::cout);
 		std::cout << std::endl;
 	}

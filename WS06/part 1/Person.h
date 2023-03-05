@@ -58,6 +58,8 @@ namespace sdds
 	class  Student : public Person {
 	public:
 		explicit Student(std::istream& in);
+		Student(const Student& right) = delete;
+		Student& operator =(const Student& right) = delete;
 		virtual ~Student();
 		std::string status() const override;
 		std::string name() const override;

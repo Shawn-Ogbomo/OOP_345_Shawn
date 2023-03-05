@@ -155,6 +155,13 @@ namespace sdds {
 		return m_id;
 	}
 	void Student::display(std::ostream& out) const {
-		//do this later...
+		out << std::left << "| " << std::setw(10) << status() << "| " << std::setw(10) << id() << "| " << std::setw(20) << name() << " | " << std::setw(3) << age() << " |";
+		for (auto& course : m_courses) {
+			if (course != m_courses.back()) {
+				out << course << ", ";
+				continue;
+			}
+			out << course;
+		}
 	}
 }

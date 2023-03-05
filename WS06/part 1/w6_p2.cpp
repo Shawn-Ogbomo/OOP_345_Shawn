@@ -65,7 +65,7 @@ int main(int argc, char** argv)
 	//{
 	//	// TODO: Create a lambda expression that receives as parameter `const sdds::Person*`
 	//	//         and returns true if the person is professor.
-	auto professors = [](const sdds::Person* p) {return p->status() = "Professor"; };
+	auto professors = [](const sdds::Person* p) {return p->status() == "Professor"; };
 	theCollege.select(professors, persons);
 
 	std::cout << "|                                        Test #4 Professors in the college!                                            |\n";
